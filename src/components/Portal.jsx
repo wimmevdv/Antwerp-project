@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useI18n } from '../i18n';
 import LanguageSelector from './LanguageSelector';
+import AppointmentsOverview from './portal/AppointmentsOverview';
 
 const NAV_LINKS = ['home', 'portal_about', 'portal_services', 'portal_contact'];
 
@@ -71,6 +72,9 @@ const Portal = ({ onBookAppointment, onDoctorLogin }) => {
           </div>
         </div>
       </section>
+
+      {/* ── Afspraken overzicht ──────────────────────────────────────── */}
+      <AppointmentsOverview onBookAppointment={onBookAppointment} />
 
       {/* ── Services strip ───────────────────────────────────────────── */}
       <section className="portal-services">
