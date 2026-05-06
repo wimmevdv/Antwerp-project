@@ -1,91 +1,80 @@
 import React, { useState, useEffect } from 'react';
 import { I18nProvider, useI18n } from './i18n';
 import LanguageSelector from './components/LanguageSelector';
+import Portal from './components/Portal';
 import Wizard from './components/wizard/Wizard';
 import ChatHelper from './components/ChatHelper';
 import DoctorLogin from './components/DoctorLogin';
 import DoctorDashboard from './components/DoctorDashboard';
 
-const KioskApp = () => {
-  const [isSessionActive, setIsSessionActive] = useState(false);
-  const [view, setView] = useState('wizard');
+const App = () => {
+  const [view, setView] = useState('portal');
   const { t } = useI18n();
 
+  // Inactiviteitstimer — enkel actief tijdens kiosk-sessie
   useEffect(() => {
+    if (view !== 'wizard') return;
     let timeout;
-    
-    const resetTimer = () => {
-      if (isSessionActive) {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          setIsSessionActive(false);
-          setView('wizard');
-        }, 120000); // 2 minutes d'inactivité
-      }
+    const reset = () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => setView('portal'), 120000);
     };
-
-    if (isSessionActive) {
-      resetTimer();
-      window.addEventListener('mousemove', resetTimer);
-      window.addEventListener('mousedown', resetTimer);
-      window.addEventListener('keypress', resetTimer);
-      window.addEventListener('touchstart', resetTimer);
-    }
-
+    reset();
+    window.addEventListener('mousemove', reset);
+    window.addEventListener('mousedown', reset);
+    window.addEventListener('keypress', reset);
+    window.addEventListener('touchstart', reset);
     return () => {
       clearTimeout(timeout);
-      window.removeEventListener('mousemove', resetTimer);
-      window.removeEventListener('mousedown', resetTimer);
-      window.removeEventListener('keypress', resetTimer);
-      window.removeEventListener('touchstart', resetTimer);
+      window.removeEventListener('mousemove', reset);
+      window.removeEventListener('mousedown', reset);
+      window.removeEventListener('keypress', reset);
+      window.removeEventListener('touchstart', reset);
     };
-  }, [isSessionActive]);
+  }, [view]);
 
-  if (!isSessionActive) {
+  // ── Portal (hoofdpagina) ─────────────────────────────────────────
+  if (view === 'portal') {
     return (
-      <div className="splash-screen" onClick={() => { setIsSessionActive(true); setView('wizard'); }}>
-        <div style={{ fontSize: '8rem', animation: 'pointAndBounce 1.5s infinite' }}>👆</div>
-        <h1>{t('touchToStart')}</h1>
-        <div style={{ marginTop: '3rem', background: 'rgba(255,255,255,0.1)', padding: '15px', borderRadius: '12px' }} onClick={(e) => e.stopPropagation()}>
-          <LanguageSelector lightText />
-        </div>
-        
-        {/* Hidden link for doctors on the splash screen too just in case */}
-        <div style={{ position: 'absolute', bottom: '20px', right: '20px', fontSize: '0.8rem', opacity: 0.5 }}>
-          <span style={{ cursor: 'pointer' }} onClick={(e) => { e.stopPropagation(); setIsSessionActive(true); setView('doctorLogin'); }}>
-            {t('proAccess')}
-          </span>
-        </div>
-      </div>
+      <Portal
+        onBookAppointment={() => setView('wizard')}
+        onDoctorLogin={() => setView('doctorLogin')}
+      />
     );
   }
 
+  // ── Kiosk wizard + dokter views ──────────────────────────────────
   return (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
       <header className="header">
-        <div className="logo" onClick={() => { setIsSessionActive(false); setView('wizard'); }} style={{cursor: 'pointer'}} title="Retour à l'accueil">ZAS 🏥</div>
-        <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
-          <LanguageSelector />
+        <div
+          className="logo"
+          onClick={() => setView('portal')}
+          style={{ cursor: 'pointer' }}
+          title="Terug naar portaal"
+        >
+          ZAS 🏥
         </div>
+        <LanguageSelector />
       </header>
-      
+
       <main className="container" style={{ flex: 1 }}>
         {view === 'wizard' && (
-          <Wizard onReset={() => { setIsSessionActive(false); setView('wizard'); }} />
+          <Wizard onReset={() => setView('portal')} />
         )}
         {view === 'doctorLogin' && (
-          <DoctorLogin 
-            onLogin={() => setView('doctorDashboard')} 
-            onCancel={() => { setIsSessionActive(false); setView('wizard'); }} 
+          <DoctorLogin
+            onLogin={() => setView('doctorDashboard')}
+            onCancel={() => setView('portal')}
           />
         )}
         {view === 'doctorDashboard' && (
-          <DoctorDashboard onBack={() => { setIsSessionActive(false); setView('wizard'); }} />
+          <DoctorDashboard onBack={() => setView('portal')} />
         )}
       </main>
 
       <footer style={{ textAlign: 'center', padding: '1rem', color: 'var(--text-muted)', fontSize: '0.9rem' }}>
-        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => { setView('doctorLogin'); }}>
+        <span style={{ cursor: 'pointer', textDecoration: 'underline' }} onClick={() => setView('doctorLogin')}>
           {t('proAccess')}
         </span>
       </footer>
@@ -95,12 +84,12 @@ const KioskApp = () => {
   );
 };
 
-function App() {
+function AppWithI18n() {
   return (
     <I18nProvider>
-      <KioskApp />
+      <App />
     </I18nProvider>
   );
 }
 
-export default App;
+export default AppWithI18n;
