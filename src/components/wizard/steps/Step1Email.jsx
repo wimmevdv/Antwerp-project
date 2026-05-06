@@ -21,7 +21,7 @@ const Step1Email = ({ formData, errors, handleChange, showCursor }) => {
           onChange={handleChange}
           className={errors.email ? 'error' : ''}
           aria-invalid={!!errors.email}
-          placeholder="votre.adresse@email.com"
+          placeholder={t('emailPlaceholder')}
           style={{ width: '100%', padding: '1rem', fontSize: '1.2rem' }}
           autoFocus
         />
