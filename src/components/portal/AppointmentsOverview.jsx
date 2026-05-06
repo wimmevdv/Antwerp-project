@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useI18n } from '../../i18n';
 import { doctors } from '../../data/doctors';
 import { campuses, getCampusForSpecialty } from '../../data/campuses';
@@ -6,10 +6,13 @@ import { getBookedSlots } from '../../services/appointmentService';
 import CampusBadge from '../CampusBadge';
 
 const SPECIALTY_META = {
-  spec_cardiology:   { icon: '🫀', color: '#c0392b', bg: '#fdf0ef' },
-  spec_orthopedics:  { icon: '🦴', color: '#2471a3', bg: '#eaf4fb' },
-  spec_pediatrics:   { icon: '👶', color: '#1e8449', bg: '#eafaf1' },
-  spec_ophthalmology:{ icon: '👁️', color: '#7d3c98', bg: '#f5eef8' },
+  spec_cardiology:       { icon: '🫀', color: '#c0392b', bg: '#fdf0ef' },
+  spec_orthopedics:      { icon: '🦴', color: '#2471a3', bg: '#eaf4fb' },
+  spec_pediatrics:       { icon: '👶', color: '#1e8449', bg: '#eafaf1' },
+  spec_ophthalmology:    { icon: '👁️', color: '#7d3c98', bg: '#f5eef8' },
+  spec_neurology:        { icon: '🧠', color: '#1a5276', bg: '#eaf2f8' },
+  spec_dermatology:      { icon: '🩺', color: '#b7770d', bg: '#fef9e7' },
+  spec_gastroenterology: { icon: '🫃', color: '#117a65', bg: '#e8f8f5' },
 };
 
 function formatDate(dateStr, lang) {
@@ -20,42 +23,39 @@ function formatDate(dateStr, lang) {
 function isUpcoming(dateStr, timeStr) {
   const [h, m] = timeStr.split(':');
   const dt = new Date(dateStr + 'T00:00:00');
-  dt.setHours(parseInt(h), parseInt(m), 0, 0);
+  dt.setHours(parseInt(h, 10), parseInt(m, 10), 0, 0);
   return dt >= new Date();
+}
+
+function buildEnrichedSlots() {
+  const raw = getBookedSlots();
+  return raw
+    .map(slot => {
+      const doctor = doctors.find(d => d.id === slot.doctorId);
+      const campus = slot.campusId
+        ? campuses[slot.campusId]
+        : doctor ? getCampusForSpecialty(doctor.specialty) : null;
+      return { ...slot, doctor, campus };
+    })
+    .filter(slot => slot.doctor && isUpcoming(slot.date, slot.time))
+    .sort((a, b) => {
+      const da = new Date(a.date + 'T' + a.time);
+      const db = new Date(b.date + 'T' + b.time);
+      return da - db;
+    });
 }
 
 const AppointmentsOverview = ({ onBookAppointment }) => {
   const { t, lang } = useI18n();
-  const [slots, setSlots] = useState([]);
 
-  useEffect(() => {
-    const raw = getBookedSlots();
-    // Koppel artsinfo aan elke afspraak en filter alleen toekomstige
-    const enriched = raw
-      .map(slot => {
-        const doctor = doctors.find(d => d.id === slot.doctorId);
-        const campus = slot.campusId
-          ? campuses[slot.campusId]
-          : doctor ? getCampusForSpecialty(doctor.specialty) : null;
-        return { ...slot, doctor, campus };
-      })
-      .filter(slot => slot.doctor && isUpcoming(slot.date, slot.time))
-      .sort((a, b) => {
-        const da = new Date(a.date + 'T' + a.time);
-        const db = new Date(b.date + 'T' + b.time);
-        return da - db;
-      });
-    setSlots(enriched);
-  }, []);
+  // Lazy initializer: reads localStorage synchronously on every mount.
+  // Portal is fully unmounted/remounted on each visit, so this always
+  // reflects the latest data without needing a useEffect.
+  const [slots, setSlots] = useState(buildEnrichedSlots);
 
   const cancelAppointment = (index) => {
+    const toRemove = slots[index];
     const raw = getBookedSlots();
-    const enriched = raw
-      .map(slot => ({ ...slot, doctor: doctors.find(d => d.id === slot.doctorId) }))
-      .filter(slot => slot.doctor && isUpcoming(slot.date, slot.time))
-      .sort((a, b) => new Date(a.date + 'T' + a.time) - new Date(b.date + 'T' + b.time));
-
-    const toRemove = enriched[index];
     const updated = raw.filter(
       s => !(s.doctorId === toRemove.doctorId && s.date === toRemove.date && s.time === toRemove.time)
     );

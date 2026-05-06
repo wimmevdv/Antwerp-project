@@ -177,6 +177,30 @@ const translations = {
     q_opht_dry_eyes: "Avez-vous souvent les yeux secs ou qui grattent ?",
     q_opht_family_eye: "Y a-t-il des maladies oculaires dans votre famille (glaucome, cataracte…) ?",
 
+    // Voorbereiding (FR)
+    prep_gastro_title: "Préparation importante pour votre consultation",
+    prep_gastro_alert: "Venez à jeun (12h)",
+    prep_gastro_1: "Ne mangez ni ne buvez rien pendant les 12 heures précédant votre rendez-vous.",
+    prep_gastro_2: "Seule l'eau est autorisée (petites quantités).",
+    prep_gastro_3: "Si vous prenez des anticoagulants, consultez votre médecin traitant avant l'arrêt.",
+
+    prep_cardio_title: "Conseils pour votre consultation cardiologique",
+    prep_cardio_alert: "Médicaments & tenue confortable",
+    prep_cardio_1: "Apportez la liste complète de vos médicaments actuels.",
+    prep_cardio_2: "Portez une tenue confortable permettant l'accès à la poitrine.",
+    prep_cardio_3: "Évitez les efforts physiques intenses la veille.",
+
+    prep_neuro_title: "Préparation pour votre consultation neurologique",
+    prep_neuro_alert: "Bien dormi + examens antérieurs",
+    prep_neuro_1: "Dormez suffisamment la nuit précédant le rendez-vous.",
+    prep_neuro_2: "Apportez vos examens précédents (IRM, scanner) si disponibles.",
+    prep_neuro_3: "Évitez toute consommation d'alcool dans les 24 heures précédentes.",
+
+    prep_derm_title: "Préparation pour votre consultation dermatologique",
+    prep_derm_alert: "Pas de crème ni de maquillage",
+    prep_derm_1: "N'appliquez pas de crème, de maquillage ou de lotion sur la zone à examiner.",
+    prep_derm_2: "Portez des vêtements permettant d'accéder facilement à la zone concernée.",
+
     // Neurologie questions
     q_neuro_headache_freq: "À quelle fréquence avez-vous des maux de tête ?",
     opt_daily: "Tous les jours",
@@ -382,6 +406,30 @@ const translations = {
     q_opht_dry_eyes: "Do you often have dry or itchy eyes?",
     q_opht_family_eye: "Is there a history of eye disease in your family (glaucoma, cataracts…)?",
 
+    // Preparation (EN)
+    prep_gastro_title: "Important preparation for your appointment",
+    prep_gastro_alert: "Come fasting (12h)",
+    prep_gastro_1: "Do not eat or drink anything for 12 hours before your appointment.",
+    prep_gastro_2: "Small amounts of water are allowed.",
+    prep_gastro_3: "If you take blood thinners, consult your GP before stopping them.",
+
+    prep_cardio_title: "Tips for your cardiology appointment",
+    prep_cardio_alert: "Medications & comfortable clothing",
+    prep_cardio_1: "Bring a complete list of your current medications.",
+    prep_cardio_2: "Wear comfortable clothing that allows access to the chest area.",
+    prep_cardio_3: "Avoid strenuous physical activity the day before.",
+
+    prep_neuro_title: "Preparation for your neurology appointment",
+    prep_neuro_alert: "Well-rested + previous scans",
+    prep_neuro_1: "Get a good night's sleep before your appointment.",
+    prep_neuro_2: "Bring any previous scan results (MRI, CT) if available.",
+    prep_neuro_3: "Avoid alcohol for 24 hours before the appointment.",
+
+    prep_derm_title: "Preparation for your dermatology appointment",
+    prep_derm_alert: "No cream or makeup",
+    prep_derm_1: "Do not apply cream, makeup or lotion to the area to be examined.",
+    prep_derm_2: "Wear clothing that allows easy access to the affected area.",
+
     // Neurology questions
     q_neuro_headache_freq: "How often do you experience headaches?",
     opt_daily: "Every day",
@@ -586,6 +634,30 @@ const translations = {
 
     q_opht_dry_eyes: "Heeft u vaak last van droge of jeukende ogen?",
     q_opht_family_eye: "Is er een familiegeschiedenis van oogziekten (glaucoom, staar…)?",
+
+    // Voorbereiding (NL)
+    prep_gastro_title: "Belangrijke voorbereiding voor uw afspraak",
+    prep_gastro_alert: "Nuchter komen (12u)",
+    prep_gastro_1: "Eet en drink niets gedurende de 12 uur vóór uw afspraak.",
+    prep_gastro_2: "Kleine hoeveelheden water zijn toegestaan.",
+    prep_gastro_3: "Neemt u bloedverdunners? Raadpleeg uw huisarts voordat u ze stopt.",
+
+    prep_cardio_title: "Tips voor uw cardiologische afspraak",
+    prep_cardio_alert: "Medicatielijst & comfortabele kleding",
+    prep_cardio_1: "Breng een volledige lijst van uw huidige medicatie mee.",
+    prep_cardio_2: "Draag comfortabele kleding die toegang tot de borst mogelijk maakt.",
+    prep_cardio_3: "Vermijd zware lichamelijke inspanning de dag voor uw afspraak.",
+
+    prep_neuro_title: "Voorbereiding voor uw neurologische afspraak",
+    prep_neuro_alert: "Uitgerust + vroegere scans",
+    prep_neuro_1: "Zorg voor een goede nachtrust voor de afspraak.",
+    prep_neuro_2: "Breng vroegere onderzoeken mee (MRI, CT-scan) indien beschikbaar.",
+    prep_neuro_3: "Vermijd alcohol gedurende de 24 uur vóór de afspraak.",
+
+    prep_derm_title: "Voorbereiding voor uw dermatologische afspraak",
+    prep_derm_alert: "Geen crème of make-up",
+    prep_derm_1: "Breng geen crème, make-up of lotion aan op het te onderzoeken gebied.",
+    prep_derm_2: "Draag kleding die gemakkelijke toegang geeft tot het betrokken gebied.",
 
     // Neurologie vragen
     q_neuro_headache_freq: "Hoe vaak heeft u last van hoofdpijn?",

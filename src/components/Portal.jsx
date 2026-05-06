@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useI18n } from '../i18n';
 import LanguageSelector from './LanguageSelector';
 import AppointmentsOverview from './portal/AppointmentsOverview';
+import { preparationInstructions } from '../data/preparationInstructions';
 
 const NAV_LINKS = ['home', 'portal_about', 'portal_services', 'portal_contact'];
 
@@ -86,14 +87,22 @@ const Portal = ({ onBookAppointment, onDoctorLogin }) => {
           { icon: '🧠', key: 'spec_neurology',        desc: 'portal_neuro_desc' },
           { icon: '🩺', key: 'spec_dermatology',      desc: 'portal_derm_desc' },
           { icon: '🫃', key: 'spec_gastroenterology', desc: 'portal_gastro_desc' },
-        ].map(({ icon, key, desc }) => (
-          <div key={key} className="portal-service-card" onClick={onBookAppointment}>
-            <div className="portal-service-icon">{icon}</div>
-            <h3>{t(key)}</h3>
-            <p>{t(desc)}</p>
-            <span className="portal-service-cta">{t('portal_bookNow')} →</span>
-          </div>
-        ))}
+        ].map(({ icon, key, desc }) => {
+          const prep = preparationInstructions[key];
+          return (
+            <div key={key} className="portal-service-card" onClick={onBookAppointment}>
+              <div className="portal-service-icon">{icon}</div>
+              <h3>{t(key)}</h3>
+              <p>{t(desc)}</p>
+              {prep && (
+                <div className="portal-prep-badge">
+                  {prep.icon} {t(prep.alertKey)}
+                </div>
+              )}
+              <span className="portal-service-cta">{t('portal_bookNow')} →</span>
+            </div>
+          );
+        })}
       </section>
 
       {/* ── Info banner ──────────────────────────────────────────────── */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useI18n } from '../../i18n';
 import { questionnaires } from '../../data/questionnaires';
 import { getCampusForSpecialty } from '../../data/campuses';
+import { getPreparationForSpecialty } from '../../data/preparationInstructions';
 import { saveAppointment, sendConfirmationEmail } from '../../services/appointmentService';
 import WizardStepIndicator from './WizardStepIndicator';
 import CampusBadge from '../CampusBadge';
@@ -32,6 +33,7 @@ const Wizard = ({ onReset }) => {
   const needsQuestionnaire = currentQuestions.length > 0;
   const totalSteps = needsQuestionnaire ? 4 : 3;
   const campus = getCampusForSpecialty(formData.specialty);
+  const preparation = getPreparationForSpecialty(formData.specialty);
 
   // ── Validation ───────────────────────────────────────────────────────────
 
@@ -92,7 +94,10 @@ const Wizard = ({ onReset }) => {
     const notesLine = questionnaireNotes.trim()
       ? `\n\n📝 ${t('questionnaireNotesLabel')}:\n${questionnaireNotes.trim()}`
       : '';
-    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.${campusLine}${notesLine}\n\n${t('emailClosing')}`;
+    const prepLine = preparation
+      ? `\n\n⚠️ ${t(preparation.titleKey)}:\n${preparation.items.map(k => `• ${t(k)}`).join('\n')}`
+      : '';
+    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.${campusLine}${prepLine}${notesLine}\n\n${t('emailClosing')}`;
 
     sendConfirmationEmail(formData, subject, message)
       .then(() => setIsSuccess(true))
@@ -164,6 +169,20 @@ const Wizard = ({ onReset }) => {
         </div>
 
         {campus && <CampusBadge campus={campus} />}
+
+        {preparation && (
+          <div className="prep-card fade-in">
+            <div className="prep-card-header">
+              <span className="prep-card-icon">{preparation.icon}</span>
+              <strong>{t(preparation.titleKey)}</strong>
+            </div>
+            <ul className="prep-card-list">
+              {preparation.items.map(key => (
+                <li key={key}>{t(key)}</li>
+              ))}
+            </ul>
+          </div>
+        )}
 
         <button
           className="primary"

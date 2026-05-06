@@ -1036,3 +1036,63 @@ button {
   font-size: 0.9rem;
   margin-top: auto;
 }
+
+/* ── Preparation badge on portal service cards ─────────────────────── */
+.portal-prep-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff8e1;
+  border: 1.5px solid #f9c846;
+  color: #7a5800;
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin: 0.5rem 0 0.25rem;
+  white-space: nowrap;
+}
+
+/* ── Preparation card on wizard success screen ─────────────────────── */
+.prep-card {
+  background: #fff8e1;
+  border: 2px solid #f9c846;
+  border-radius: 12px;
+  padding: 1.4rem 1.6rem;
+  margin-top: 1.5rem;
+}
+
+.prep-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 0.8rem;
+  font-size: 1.15rem;
+  color: #7a5800;
+}
+
+.prep-card-icon { font-size: 1.6rem; }
+
+.prep-card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.prep-card-list li {
+  font-size: 1.05rem;
+  color: #4a3800;
+  padding-left: 1.4rem;
+  position: relative;
+}
+
+.prep-card-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: #f9c846;
+  font-weight: bold;
+}
