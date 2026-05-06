@@ -79,10 +79,13 @@ const Portal = ({ onBookAppointment, onDoctorLogin }) => {
       {/* ── Services strip ───────────────────────────────────────────── */}
       <section className="portal-services">
         {[
-          { icon: '🫀', key: 'spec_cardiology',   desc: 'portal_cardio_desc' },
-          { icon: '🦴', key: 'spec_orthopedics',  desc: 'portal_ortho_desc' },
-          { icon: '👶', key: 'spec_pediatrics',   desc: 'portal_peds_desc' },
-          { icon: '👁️', key: 'spec_ophthalmology', desc: 'portal_opht_desc' },
+          { icon: '🫀', key: 'spec_cardiology',       desc: 'portal_cardio_desc' },
+          { icon: '🦴', key: 'spec_orthopedics',      desc: 'portal_ortho_desc' },
+          { icon: '👶', key: 'spec_pediatrics',       desc: 'portal_peds_desc' },
+          { icon: '👁️', key: 'spec_ophthalmology',    desc: 'portal_opht_desc' },
+          { icon: '🧠', key: 'spec_neurology',        desc: 'portal_neuro_desc' },
+          { icon: '🩺', key: 'spec_dermatology',      desc: 'portal_derm_desc' },
+          { icon: '🫃', key: 'spec_gastroenterology', desc: 'portal_gastro_desc' },
         ].map(({ icon, key, desc }) => (
           <div key={key} className="portal-service-card" onClick={onBookAppointment}>
             <div className="portal-service-icon">{icon}</div>

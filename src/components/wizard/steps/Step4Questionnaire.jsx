@@ -1,7 +1,7 @@
 import React from 'react';
 import { useI18n } from '../../../i18n';
 
-const Step4Questionnaire = ({ questions, answers, errors, onAnswerSelect, showCursor }) => {
+const Step4Questionnaire = ({ questions, answers, errors, onAnswerSelect, notes, onNotesChange, showCursor }) => {
   const { t } = useI18n();
 
   return (
@@ -45,6 +45,28 @@ const Step4Questionnaire = ({ questions, answers, errors, onAnswerSelect, showCu
           </div>
         );
       })}
+
+      <div className="questionnaire-question" style={{ marginTop: '2rem' }}>
+        <p className="question-text">📝 {t('questionnaireNotesLabel')}</p>
+        <textarea
+          value={notes}
+          onChange={e => onNotesChange(e.target.value)}
+          placeholder={t('questionnaireNotesPlaceholder')}
+          rows={4}
+          style={{
+            width: '100%',
+            fontSize: '1.2rem',
+            padding: '12px 16px',
+            borderRadius: '10px',
+            border: '2px solid var(--border-color)',
+            resize: 'vertical',
+            fontFamily: 'inherit',
+            lineHeight: '1.6',
+            boxSizing: 'border-box',
+            marginTop: '0.5rem',
+          }}
+        />
+      </div>
     </div>
   );
 };

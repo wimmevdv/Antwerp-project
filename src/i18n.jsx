@@ -7,6 +7,8 @@ const translations = {
     campus_middelheim: "Campus Middelheim",
     campus_stuivenberg: "Campus Stuivenberg",
     campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_wilrijkse_plein: "Campus Wilrijkse Plein",
+    campus_ekeren: "Campus Ekeren",
     campus_maps: "Voir sur Google Maps",
     campus_email_line: "📍 Lieu de votre rendez-vous :",
     // Appointments overview
@@ -32,6 +34,9 @@ const translations = {
     portal_ortho_desc: "Prise en charge des os, muscles et articulations.",
     portal_peds_desc: "Soins médicaux dédiés aux enfants et adolescents.",
     portal_opht_desc: "Examens et traitements pour la santé des yeux.",
+    portal_neuro_desc: "Diagnostic et traitement des maladies neurologiques.",
+    portal_derm_desc: "Soins spécialisés pour la peau, les cheveux et les ongles.",
+    portal_gastro_desc: "Prise en charge des troubles digestifs et gastro-intestinaux.",
     portal_bookNow: "Réserver",
     portal_info_hours: "Heures d'ouverture",
     portal_info_hours_val: "Lun – Ven, 8h00 – 18h00",
@@ -54,6 +59,9 @@ const translations = {
     spec_orthopedics: "Orthopédie",
     spec_pediatrics: "Pédiatrie",
     spec_ophthalmology: "Ophtalmologie",
+    spec_neurology: "Neurologie",
+    spec_dermatology: "Dermatologie",
+    spec_gastroenterology: "Gastro-entérologie",
     dateLabel: "Choisissez une date",
     timeLabel: "Choisissez une heure",
     timePlaceholder: "Sélectionnez l'heure...",
@@ -107,6 +115,8 @@ const translations = {
     doctorDashboardTitle: "Tableau de Bord Médecin",
     questionnaireNotice: "Un court questionnaire médical vous sera demandé à l'étape 4.",
     questionnaireIntro: "Veuillez répondre aux questions suivantes pour préparer votre consultation. Cela aide le médecin à mieux vous accueillir.",
+    questionnaireNotesLabel: "Informations supplémentaires (optionnel)",
+    questionnaireNotesPlaceholder: "Décrivez ici tout ce que vous souhaitez partager avec le médecin…",
 
     // Shared answer options
     opt_yes: "Oui",
@@ -166,6 +176,35 @@ const translations = {
 
     q_opht_dry_eyes: "Avez-vous souvent les yeux secs ou qui grattent ?",
     q_opht_family_eye: "Y a-t-il des maladies oculaires dans votre famille (glaucome, cataracte…) ?",
+
+    // Neurologie questions
+    q_neuro_headache_freq: "À quelle fréquence avez-vous des maux de tête ?",
+    opt_daily: "Tous les jours",
+    opt_weekly: "Toutes les semaines",
+    opt_monthly: "Tous les mois",
+    opt_rarely: "Rarement",
+    q_neuro_dizziness: "Avez-vous des vertiges ou des étourdissements ?",
+    q_neuro_numbness: "Ressentez-vous des engourdissements ou des fourmillements ?",
+    q_neuro_memory_issues: "Avez-vous des problèmes de mémoire ou de concentration ?",
+    q_neuro_seizures: "Avez-vous déjà eu des crises convulsives ou des absences ?",
+
+    // Dermatologie questions
+    q_derm_skin_location: "Où se situe le problème de peau ?",
+    opt_face: "Visage",
+    opt_arms: "Bras",
+    opt_legs: "Jambes",
+    opt_torso: "Torse",
+    q_derm_skin_duration: "Depuis combien de temps avez-vous ce problème ?",
+    q_derm_itching: "Avez-vous des démangeaisons ?",
+    q_derm_family_skin: "Y a-t-il des maladies de peau dans votre famille (psoriasis, eczéma…) ?",
+    q_derm_prev_skin_cond: "Avez-vous déjà eu un problème de peau diagnostiqué auparavant ?",
+
+    // Gastro-entérologie questions
+    q_gastro_abdom_pain: "Ressentez-vous des douleurs abdominales ?",
+    q_gastro_nausea: "Avez-vous des nausées ou des vomissements ?",
+    q_gastro_bowel_changes: "Avez-vous constaté des changements dans vos selles (consistance, fréquence) ?",
+    q_gastro_heartburn: "Souffrez-vous de brûlures d'estomac ou de reflux ?",
+    q_gastro_prev_gi: "Avez-vous déjà eu des problèmes digestifs diagnostiqués (ulcère, colopathie…) ?",
   },
   en: {
     // Campus
@@ -173,6 +212,8 @@ const translations = {
     campus_middelheim: "Campus Middelheim",
     campus_stuivenberg: "Campus Stuivenberg",
     campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_wilrijkse_plein: "Campus Wilrijkse Plein",
+    campus_ekeren: "Campus Ekeren",
     campus_maps: "View on Google Maps",
     campus_email_line: "📍 Location of your appointment:",
     // Appointments overview
@@ -198,6 +239,9 @@ const translations = {
     portal_ortho_desc: "Care for bones, muscles and joints.",
     portal_peds_desc: "Medical care dedicated to children and teenagers.",
     portal_opht_desc: "Exams and treatments for eye health.",
+    portal_neuro_desc: "Diagnosis and treatment of neurological conditions.",
+    portal_derm_desc: "Specialised care for skin, hair and nail conditions.",
+    portal_gastro_desc: "Management of digestive and gastrointestinal disorders.",
     portal_bookNow: "Book now",
     portal_info_hours: "Opening hours",
     portal_info_hours_val: "Mon – Fri, 8:00 – 18:00",
@@ -220,6 +264,9 @@ const translations = {
     spec_orthopedics: "Orthopedics",
     spec_pediatrics: "Pediatrics",
     spec_ophthalmology: "Ophthalmology",
+    spec_neurology: "Neurology",
+    spec_dermatology: "Dermatology",
+    spec_gastroenterology: "Gastroenterology",
     dateLabel: "Choose a date",
     timeLabel: "Choose a time",
     timePlaceholder: "Select a time...",
@@ -273,6 +320,8 @@ const translations = {
     doctorDashboardTitle: "Doctor Dashboard",
     questionnaireNotice: "A short medical questionnaire will be asked at step 4.",
     questionnaireIntro: "Please answer the following questions to prepare your consultation. This helps the doctor welcome you better.",
+    questionnaireNotesLabel: "Additional information (optional)",
+    questionnaireNotesPlaceholder: "Describe anything you would like to share with the doctor…",
 
     // Shared answer options
     opt_yes: "Yes",
@@ -332,6 +381,35 @@ const translations = {
 
     q_opht_dry_eyes: "Do you often have dry or itchy eyes?",
     q_opht_family_eye: "Is there a history of eye disease in your family (glaucoma, cataracts…)?",
+
+    // Neurology questions
+    q_neuro_headache_freq: "How often do you experience headaches?",
+    opt_daily: "Every day",
+    opt_weekly: "Every week",
+    opt_monthly: "Every month",
+    opt_rarely: "Rarely",
+    q_neuro_dizziness: "Do you experience dizziness or vertigo?",
+    q_neuro_numbness: "Do you experience numbness or tingling sensations?",
+    q_neuro_memory_issues: "Do you have problems with memory or concentration?",
+    q_neuro_seizures: "Have you ever had seizures or blackouts?",
+
+    // Dermatology questions
+    q_derm_skin_location: "Where is the skin problem located?",
+    opt_face: "Face",
+    opt_arms: "Arms",
+    opt_legs: "Legs",
+    opt_torso: "Torso",
+    q_derm_skin_duration: "How long have you had this problem?",
+    q_derm_itching: "Do you experience itching?",
+    q_derm_family_skin: "Is there a family history of skin conditions (psoriasis, eczema…)?",
+    q_derm_prev_skin_cond: "Have you ever been diagnosed with a skin condition before?",
+
+    // Gastroenterology questions
+    q_gastro_abdom_pain: "Do you experience abdominal pain?",
+    q_gastro_nausea: "Do you experience nausea or vomiting?",
+    q_gastro_bowel_changes: "Have you noticed changes in your bowel movements (consistency, frequency)?",
+    q_gastro_heartburn: "Do you suffer from heartburn or acid reflux?",
+    q_gastro_prev_gi: "Have you been previously diagnosed with a digestive condition (ulcer, IBS…)?",
   },
   nl: {
     // Campus
@@ -339,6 +417,8 @@ const translations = {
     campus_middelheim: "Campus Middelheim",
     campus_stuivenberg: "Campus Stuivenberg",
     campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_wilrijkse_plein: "Campus Wilrijkse Plein",
+    campus_ekeren: "Campus Ekeren",
     campus_maps: "Bekijk op Google Maps",
     campus_email_line: "📍 Locatie van uw afspraak:",
     // Appointments overview
@@ -364,6 +444,9 @@ const translations = {
     portal_ortho_desc: "Zorg voor botten, spieren en gewrichten.",
     portal_peds_desc: "Medische zorg voor kinderen en tieners.",
     portal_opht_desc: "Onderzoeken en behandelingen voor oogzorg.",
+    portal_neuro_desc: "Diagnose en behandeling van neurologische aandoeningen.",
+    portal_derm_desc: "Gespecialiseerde zorg voor huid-, haar- en nagelklachten.",
+    portal_gastro_desc: "Behandeling van spijsverterings- en maagdarmproblemen.",
     portal_bookNow: "Boek nu",
     portal_info_hours: "Openingsuren",
     portal_info_hours_val: "Ma – Vr, 8:00 – 18:00",
@@ -386,6 +469,9 @@ const translations = {
     spec_orthopedics: "Orthopedie",
     spec_pediatrics: "Pediatrie",
     spec_ophthalmology: "Oogheelkunde",
+    spec_neurology: "Neurologie",
+    spec_dermatology: "Dermatologie",
+    spec_gastroenterology: "Gastro-enterologie",
     dateLabel: "Kies een datum",
     timeLabel: "Kies een tijd",
     timePlaceholder: "Selecteer een tijd...",
@@ -439,6 +525,8 @@ const translations = {
     doctorDashboardTitle: "Arts Dashboard",
     questionnaireNotice: "Bij stap 4 volgt een korte medische vragenlijst.",
     questionnaireIntro: "Beantwoord de volgende vragen om uw consultatie voor te bereiden. Dit helpt de arts u beter te ontvangen.",
+    questionnaireNotesLabel: "Extra informatie (optioneel)",
+    questionnaireNotesPlaceholder: "Beschrijf hier alles wat u met de arts wil delen…",
 
     // Gedeelde antwoordopties
     opt_yes: "Ja",
@@ -498,6 +586,35 @@ const translations = {
 
     q_opht_dry_eyes: "Heeft u vaak last van droge of jeukende ogen?",
     q_opht_family_eye: "Is er een familiegeschiedenis van oogziekten (glaucoom, staar…)?",
+
+    // Neurologie vragen
+    q_neuro_headache_freq: "Hoe vaak heeft u last van hoofdpijn?",
+    opt_daily: "Elke dag",
+    opt_weekly: "Elke week",
+    opt_monthly: "Elke maand",
+    opt_rarely: "Zelden",
+    q_neuro_dizziness: "Heeft u last van duizeligheid of vertigo?",
+    q_neuro_numbness: "Heeft u last van gevoelloosheid of tintelingen?",
+    q_neuro_memory_issues: "Heeft u problemen met geheugen of concentratie?",
+    q_neuro_seizures: "Heeft u ooit aanvallen of bewustzijnsverlies gehad?",
+
+    // Dermatologie vragen
+    q_derm_skin_location: "Waar bevindt het huidprobleem zich?",
+    opt_face: "Gezicht",
+    opt_arms: "Armen",
+    opt_legs: "Benen",
+    opt_torso: "Romp",
+    q_derm_skin_duration: "Hoe lang heeft u al dit probleem?",
+    q_derm_itching: "Heeft u last van jeuk?",
+    q_derm_family_skin: "Is er een familiegeschiedenis van huidziekten (psoriasis, eczeem…)?",
+    q_derm_prev_skin_cond: "Bent u eerder gediagnosticeerd met een huidaandoening?",
+
+    // Gastro-enterologie vragen
+    q_gastro_abdom_pain: "Heeft u buikpijn?",
+    q_gastro_nausea: "Heeft u last van misselijkheid of braken?",
+    q_gastro_bowel_changes: "Heeft u veranderingen opgemerkt in uw stoelgang (consistentie, frequentie)?",
+    q_gastro_heartburn: "Heeft u last van maagzuur of oprispingen?",
+    q_gastro_prev_gi: "Heeft u eerder een spijsverteringsaandoening gehad (maagzweer, PDS…)?",
   }
 };
 

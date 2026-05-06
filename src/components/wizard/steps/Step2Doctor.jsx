@@ -2,7 +2,7 @@ import React from 'react';
 import { useI18n } from '../../../i18n';
 import { doctors, specialties } from '../../../data/doctors';
 
-const Step1Doctor = ({ formData, errors, handleChange, showCursor, needsQuestionnaire, onSpecialtyChange }) => {
+const Step1Doctor = ({ formData, errors, handleChange, showCursor, onSpecialtyChange }) => {
   const { t } = useI18n();
 
   return (
@@ -49,11 +49,6 @@ const Step1Doctor = ({ formData, errors, handleChange, showCursor, needsQuestion
         </div>
       )}
 
-      {needsQuestionnaire && (
-        <div className="info-banner" style={{ marginTop: '1rem', padding: '1rem', backgroundColor: '#e8f5f2', borderRadius: '8px', color: '#1b6255', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '1.1rem' }}>
-          <span>📋 {t('questionnaireNotice')}</span>
-        </div>
-      )}
     </div>
   );
 };

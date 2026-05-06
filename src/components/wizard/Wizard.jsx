@@ -25,6 +25,7 @@ const Wizard = ({ onReset }) => {
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   const [formData, setFormData]                   = useState(INITIAL_FORM);
   const [questionnaireAnswers, setAnswers]        = useState({});
+  const [questionnaireNotes, setNotes]            = useState('');
   const [errors, setErrors]                       = useState({});
 
   const currentQuestions = questionnaires[formData.specialty] ?? [];
@@ -82,13 +83,16 @@ const Wizard = ({ onReset }) => {
     const valid = step === 4 ? validateStep4() : validateStep3();
     if (!valid) return;
 
-    saveAppointment({ formData, questionnaireAnswers, needsQuestionnaire, campus });
+    saveAppointment({ formData, questionnaireAnswers, questionnaireNotes, needsQuestionnaire, campus });
 
     const subject = t('emailSubject');
     const campusLine = campus
       ? `\n\n${t('campus_email_line')}\n${t(campus.nameKey)}\n📍 ${campus.address}`
       : '';
-    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.${campusLine}\n\n${t('emailClosing')}`;
+    const notesLine = questionnaireNotes.trim()
+      ? `\n\n📝 ${t('questionnaireNotesLabel')}:\n${questionnaireNotes.trim()}`
+      : '';
+    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.${campusLine}${notesLine}\n\n${t('emailClosing')}`;
 
     sendConfirmationEmail(formData, subject, message)
       .then(() => setIsSuccess(true))
@@ -107,6 +111,7 @@ const Wizard = ({ onReset }) => {
     handleChange(e);
     setFormData(prev => ({ ...prev, doctorId: '' }));
     setAnswers({});
+    setNotes('');
   };
 
   const handleTimeSlotSelect = (dateStr, timeStr) => {
@@ -196,7 +201,6 @@ const Wizard = ({ onReset }) => {
           handleChange={handleChange}
           onSpecialtyChange={handleSpecialtyChange}
           showCursor={showCursor}
-          needsQuestionnaire={needsQuestionnaire}
         />
       )}
       {step === 3 && (
@@ -215,6 +219,8 @@ const Wizard = ({ onReset }) => {
           answers={questionnaireAnswers}
           errors={errors}
           onAnswerSelect={handleAnswerSelect}
+          notes={questionnaireNotes}
+          onNotesChange={setNotes}
           showCursor={showCursor}
         />
       )}
