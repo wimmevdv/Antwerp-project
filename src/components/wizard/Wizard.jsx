@@ -3,15 +3,15 @@ import { useI18n } from '../../i18n';
 import { questionnaires } from '../../data/questionnaires';
 import { saveAppointment, sendConfirmationEmail } from '../../services/appointmentService';
 import WizardStepIndicator from './WizardStepIndicator';
-import Step1Doctor from './steps/Step1Doctor';
-import Step2Calendar from './steps/Step2Calendar';
-import Step3PatientInfo from './steps/Step3PatientInfo';
+import Step1Email from './steps/Step1Email';
+import Step2Doctor from './steps/Step2Doctor';
+import Step3Calendar from './steps/Step3Calendar';
 import Step4Questionnaire from './steps/Step4Questionnaire';
 
 const INITIAL_FORM = {
+  email: '',
   specialty: '', doctorId: '',
-  date: '', time: '',
-  firstName: '', lastName: '', phone: '', email: '', address: '', notes: '',
+  date: '', time: ''
 };
 
 const Wizard = ({ onReset }) => {
@@ -22,7 +22,7 @@ const Wizard = ({ onReset }) => {
   const [guideMode, setGuideMode]                 = useState(false);
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   const [formData, setFormData]                   = useState(INITIAL_FORM);
-  const [questionnaireAnswers, setAnswers]         = useState({});
+  const [questionnaireAnswers, setAnswers]        = useState({});
   const [errors, setErrors]                       = useState({});
 
   const currentQuestions = questionnaires[formData.specialty] ?? [];
@@ -32,29 +32,28 @@ const Wizard = ({ onReset }) => {
   // ── Validation ───────────────────────────────────────────────────────────
 
   const validateStep1 = () => {
+    const e = {};
+    if (!formData.email) {
+      e.email = t('errorRequired');
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      e.email = t('errorEmail');
+    }
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  };
+
+  const validateStep2 = () => {
     if (!formData.specialty) return setErrors({ specialty: t('errorRequired') }), false;
     if (!formData.doctorId)  return setErrors({ doctorId: t('errorRequired') }), false;
     return setErrors({}), true;
   };
 
-  const validateStep2 = () => {
+  const validateStep3 = () => {
     if (!formData.date || !formData.time) {
       setErrors({ date: t('errorRequired'), time: t('errorRequired') });
       return false;
     }
     return setErrors({}), true;
-  };
-
-  const validateStep3 = () => {
-    const e = {};
-    if (!formData.firstName)                              e.firstName = t('errorRequired');
-    else if (!formData.lastName)                          e.lastName  = t('errorRequired');
-    else if (!formData.phone)                             e.phone     = t('errorRequired');
-    else if (formData.phone.length < 8)                  e.phone     = t('errorPhone');
-    else if (!formData.email)                             e.email     = t('errorRequired');
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) e.email = t('errorEmail');
-    setErrors(e);
-    return Object.keys(e).length === 0;
   };
 
   const validateStep4 = () => {
@@ -83,7 +82,7 @@ const Wizard = ({ onReset }) => {
     saveAppointment({ formData, questionnaireAnswers, needsQuestionnaire });
 
     const subject = t('emailSubject');
-    const message = `${t('emailGreeting')} ${formData.firstName} ${formData.lastName},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.\n\n${t('emailClosing')}`;
+    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.\n\n${t('emailClosing')}`;
 
     sendConfirmationEmail(formData, subject, message)
       .then(() => setIsSuccess(true))
@@ -122,18 +121,16 @@ const Wizard = ({ onReset }) => {
     if (errorFields.length > 0) return errorFields[0] === field;
 
     if (step === 1) {
+      if (!formData.email) return field === 'email';
+      return field === 'nextBtn';
+    }
+    if (step === 2) {
       if (!formData.specialty) return field === 'specialty';
       if (!formData.doctorId)  return field === 'doctorId';
       return field === 'nextBtn';
     }
-    if (step === 2) {
-      if (!formData.date || !formData.time) return field === 'timeSlot';
-      return field === 'nextBtn';
-    }
     if (step === 3) {
-      if (!formData.firstName) return field === 'firstName';
-      if (!formData.lastName)  return field === 'lastName';
-      if (!formData.phone)     return field === 'phone';
+      if (!formData.date || !formData.time) return field === 'timeSlot';
       return field === (needsQuestionnaire ? 'nextBtn' : 'submitBtn');
     }
     if (step === 4) {
@@ -174,7 +171,15 @@ const Wizard = ({ onReset }) => {
       <WizardStepIndicator totalSteps={totalSteps} currentStep={step} />
 
       {step === 1 && (
-        <Step1Doctor
+        <Step1Email
+          formData={formData}
+          errors={errors}
+          handleChange={handleChange}
+          showCursor={showCursor}
+        />
+      )}
+      {step === 2 && (
+        <Step2Doctor
           formData={formData}
           errors={errors}
           handleChange={handleChange}
@@ -183,21 +188,13 @@ const Wizard = ({ onReset }) => {
           needsQuestionnaire={needsQuestionnaire}
         />
       )}
-      {step === 2 && (
-        <Step2Calendar
+      {step === 3 && (
+        <Step3Calendar
           formData={formData}
           errors={errors}
           currentWeekOffset={currentWeekOffset}
           setCurrentWeekOffset={setCurrentWeekOffset}
           onTimeSlotSelect={handleTimeSlotSelect}
-          showCursor={showCursor}
-        />
-      )}
-      {step === 3 && (
-        <Step3PatientInfo
-          formData={formData}
-          errors={errors}
-          handleChange={handleChange}
           showCursor={showCursor}
         />
       )}

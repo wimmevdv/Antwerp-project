@@ -73,17 +73,17 @@ const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffs
                       pastTime = slotDate < new Date();
                     }
 
-                    const disabled = booked || pastTime;
+                    if (booked || pastTime) return null;
 
                     return (
                       <div style={{ position: 'relative' }} key={slot}>
-                        {showCursor('timeSlot') && !disabled && !formData.time && !showFirstCursor && (() => {
+                        {showCursor('timeSlot') && !formData.time && !showFirstCursor && (() => {
                           showFirstCursor = true;
                           return <div className="guide-cursor" style={{ right: '-20px', top: '0px', zIndex: 100, fontSize: '3rem' }}>👆</div>;
                         })()}
                         <button
-                          className={`time-slot${selected ? ' selected' : ''}${booked ? ' booked' : ''}`}
-                          disabled={disabled}
+                          className={`time-slot${selected ? ' selected' : ''}`}
+                          disabled={false}
                           onClick={() => onTimeSlotSelect(dateStr, slot)}
                         >
                           {slot}

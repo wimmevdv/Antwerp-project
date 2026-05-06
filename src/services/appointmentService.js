@@ -15,8 +15,7 @@ export function saveAppointment({ formData, questionnaireAnswers, needsQuestionn
     doctorId:      formData.doctorId,
     date:          formData.date,
     time:          formData.time,
-    firstName:     formData.firstName,
-    lastName:      formData.lastName,
+    email:         formData.email,
     questionnaire: needsQuestionnaire ? questionnaireAnswers : null,
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(slots));
