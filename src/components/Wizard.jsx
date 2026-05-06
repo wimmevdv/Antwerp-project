@@ -146,7 +146,7 @@ const Wizard = ({ onReset }) => {
         time: formData.time,
       };
 
-      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams, "YOUR_PUBLIC_KEY")
+      emailjs.send("service_z3oiuww", "template_jewyixe", templateParams, "1-6DRGxOV4Ph6kX5a")
         .then((response) => {
           console.log('SUCCESS!', response.status, response.text);
           setIsSuccess(true);
