@@ -7,6 +7,7 @@ const translations = {
     step1Title: "1. Choisissez un médecin",
     step2Title: "2. Date et Heure",
     step3Title: "3. Vos informations",
+    step4Title: "4. Questionnaire médical",
     doctorLabel: "Choisissez un médecin",
     doctorPlaceholder: "Sélectionnez un médecin...",
     specialtyLabel: "Quelle spécialité recherchez-vous ?",
@@ -25,9 +26,10 @@ const translations = {
     errorEmail: "Veuillez entrer une adresse email valide.",
     nextButton: "Étape suivante",
     backButton: "Retour",
+    backHome: "Retour à l'accueil",
     submitButton: "Confirmer le rendez-vous",
     successTitle: "Rendez-vous confirmé !",
-    successMessage: "Votre rendez-vous a été enregistré. Un email de confirmation contenant les détails du rendez-vous vous a été envoyé.",
+    successMessage: "Votre rendez-vous a été enregistré. Un email de confirmation vous a été envoyé.",
     addressLabel: "Adresse complète (optionnel)",
     notesLabel: "Remarques ou besoins spécifiques (optionnel)",
     bankDisclaimer: "🔒 Nous ne demanderons pas d'informations personnelles sensibles ou bancaires.",
@@ -37,6 +39,7 @@ const translations = {
     errorRequired: "Oups ! Il semble que vous ayez oublié de remplir ce champ. Veuillez le sélectionner pour continuer.",
     errorPhone: "Ce numéro de téléphone semble incomplet ou incorrect. Pouvez-vous le vérifier ?",
     errorDate: "Veuillez choisir une date dans le futur. Le calendrier est juste au-dessus !",
+    errorQuestionnaire: "Veuillez répondre à toutes les questions avant de confirmer.",
     chatGreeting: "Bonjour ! Avez-vous besoin d'aide pour prendre votre rendez-vous ?",
     chatTooComplicated: "C'est trop compliqué",
     chatCallUs: "Ne vous inquiétez pas ! Vous pouvez nous appeler directement au :",
@@ -50,7 +53,6 @@ const translations = {
     noAppointments: "Vous n'avez aucun rendez-vous de programmé.",
     cancelBtn: "❌ Annuler",
     modifyBtn: "✏️ Modifier",
-    modifyBtn: "✏️ Modifier",
     doctor: "Médecin",
     date: "Date",
     time: "Heure",
@@ -59,7 +61,68 @@ const translations = {
     passwordLabel: "Code d'accès",
     loginBtn: "Se connecter",
     invalidPassword: "Code incorrect. Essayez 1234.",
-    doctorDashboardTitle: "Tableau de Bord Médecin"
+    doctorDashboardTitle: "Tableau de Bord Médecin",
+    questionnaireNotice: "Un court questionnaire médical vous sera demandé à l'étape 4.",
+    questionnaireIntro: "Veuillez répondre aux questions suivantes pour préparer votre consultation. Cela aide le médecin à mieux vous accueillir.",
+
+    // Shared answer options
+    opt_yes: "Oui",
+    opt_no: "Non",
+    opt_sometimes: "Parfois",
+    opt_unknown: "Je ne sais pas",
+
+    // Cardiology questions
+    q_cardio_chest_pain: "Ressentez-vous des douleurs ou une pression dans la poitrine ?",
+    q_cardio_shortness_breath: "Êtes-vous essoufflé(e) lors d'efforts physiques ?",
+    q_cardio_palpitations: "Avez-vous des palpitations (cœur qui bat fort ou irrégulièrement) ?",
+    q_cardio_family_history: "Y a-t-il des maladies cardiaques dans votre famille ?",
+    q_cardio_blood_pressure: "Souffrez-vous d'hypertension ou de cholestérol élevé ?",
+
+    // Orthopedics questions
+    q_ortho_pain_location: "Où ressentez-vous la douleur ?",
+    opt_shoulder: "Épaule",
+    opt_knee: "Genou",
+    opt_hip: "Hanche",
+    opt_back: "Dos",
+    opt_other: "Autre",
+
+    q_ortho_pain_duration: "Depuis combien de temps avez-vous cette douleur ?",
+    opt_less_week: "Moins d'une semaine",
+    opt_one_month: "Environ un mois",
+    opt_several_months: "Plusieurs mois",
+    opt_more_year: "Plus d'un an",
+
+    q_ortho_accident: "La douleur a-t-elle débuté après une chute ou un accident ?",
+    q_ortho_daily_limit: "La douleur limite-t-elle vos activités quotidiennes ?",
+    q_ortho_previous_surgery: "Avez-vous déjà eu une opération à cet endroit ?",
+
+    // Pediatrics questions
+    q_peds_child_age: "Quel âge a l'enfant ?",
+    opt_age_0_2: "0 à 2 ans",
+    opt_age_3_6: "3 à 6 ans",
+    opt_age_7_12: "7 à 12 ans",
+    opt_age_13_18: "13 à 18 ans",
+
+    q_peds_fever: "L'enfant a-t-il de la fièvre (plus de 38°C) ?",
+    q_peds_symptoms_duration: "Depuis combien de temps l'enfant est-il malade ?",
+    opt_less_2days: "Moins de 2 jours",
+    opt_2_7days: "2 à 7 jours",
+    opt_more_week: "Plus d'une semaine",
+
+    q_peds_allergies: "L'enfant a-t-il des allergies connues ?",
+    q_peds_vaccinations: "Les vaccinations de l'enfant sont-elles à jour ?",
+    opt_complete: "Oui, complètes",
+    opt_partial: "Partiellement",
+
+    // Ophthalmology questions
+    q_opht_blurry_vision: "Souffrez-vous d'une vision floue ?",
+    q_opht_spots_flashes: "Voyez-vous des taches ou des éclairs lumineux ?",
+    q_opht_glasses: "Portez-vous des lunettes ou des lentilles de contact ?",
+    opt_glasses: "Lunettes",
+    opt_lenses: "Lentilles",
+
+    q_opht_dry_eyes: "Avez-vous souvent les yeux secs ou qui grattent ?",
+    q_opht_family_eye: "Y a-t-il des maladies oculaires dans votre famille (glaucome, cataracte…) ?",
   },
   en: {
     appTitle: "ZAS Hospital - Appointment Booking",
@@ -67,6 +130,7 @@ const translations = {
     step1Title: "1. Choose a doctor",
     step2Title: "2. Date and Time",
     step3Title: "3. Your information",
+    step4Title: "4. Medical Questionnaire",
     doctorLabel: "Choose a doctor",
     doctorPlaceholder: "Select a doctor...",
     specialtyLabel: "Which specialty are you looking for?",
@@ -85,9 +149,10 @@ const translations = {
     errorEmail: "Please enter a valid email address.",
     nextButton: "Next step",
     backButton: "Back",
+    backHome: "Back to home",
     submitButton: "Confirm appointment",
     successTitle: "Appointment confirmed!",
-    successMessage: "Your appointment has been saved. A confirmation email with your appointment details has been sent to you.",
+    successMessage: "Your appointment has been saved. A confirmation email has been sent to you.",
     addressLabel: "Full Address (optional)",
     notesLabel: "Notes or specific needs (optional)",
     bankDisclaimer: "🔒 We will not ask for sensitive personal or banking information.",
@@ -97,6 +162,7 @@ const translations = {
     errorRequired: "Oops! It seems you forgot to fill this in. Please select it to continue.",
     errorPhone: "This phone number seems incomplete or incorrect. Could you check it?",
     errorDate: "Please choose a future date. The calendar is just above!",
+    errorQuestionnaire: "Please answer all questions before confirming.",
     chatGreeting: "Hello! Do you need help booking your appointment?",
     chatTooComplicated: "It's too complicated",
     chatCallUs: "Don't worry! You can call us directly at:",
@@ -110,7 +176,6 @@ const translations = {
     noAppointments: "You don't have any appointments scheduled.",
     cancelBtn: "❌ Cancel",
     modifyBtn: "✏️ Modify",
-    modifyBtn: "✏️ Modify",
     doctor: "Doctor",
     date: "Date",
     time: "Time",
@@ -119,7 +184,68 @@ const translations = {
     passwordLabel: "Access Code",
     loginBtn: "Login",
     invalidPassword: "Incorrect code. Try 1234.",
-    doctorDashboardTitle: "Doctor Dashboard"
+    doctorDashboardTitle: "Doctor Dashboard",
+    questionnaireNotice: "A short medical questionnaire will be asked at step 4.",
+    questionnaireIntro: "Please answer the following questions to prepare your consultation. This helps the doctor welcome you better.",
+
+    // Shared answer options
+    opt_yes: "Yes",
+    opt_no: "No",
+    opt_sometimes: "Sometimes",
+    opt_unknown: "I don't know",
+
+    // Cardiology questions
+    q_cardio_chest_pain: "Do you experience chest pain or pressure?",
+    q_cardio_shortness_breath: "Do you experience shortness of breath during physical activity?",
+    q_cardio_palpitations: "Do you experience palpitations (heart beating strongly or irregularly)?",
+    q_cardio_family_history: "Is there a history of heart disease in your family?",
+    q_cardio_blood_pressure: "Do you suffer from high blood pressure or high cholesterol?",
+
+    // Orthopedics questions
+    q_ortho_pain_location: "Where do you feel pain?",
+    opt_shoulder: "Shoulder",
+    opt_knee: "Knee",
+    opt_hip: "Hip",
+    opt_back: "Back",
+    opt_other: "Other",
+
+    q_ortho_pain_duration: "How long have you had this pain?",
+    opt_less_week: "Less than a week",
+    opt_one_month: "About a month",
+    opt_several_months: "Several months",
+    opt_more_year: "More than a year",
+
+    q_ortho_accident: "Did the pain start after a fall or accident?",
+    q_ortho_daily_limit: "Does the pain limit your daily activities?",
+    q_ortho_previous_surgery: "Have you had surgery in this area before?",
+
+    // Pediatrics questions
+    q_peds_child_age: "How old is the child?",
+    opt_age_0_2: "0 to 2 years",
+    opt_age_3_6: "3 to 6 years",
+    opt_age_7_12: "7 to 12 years",
+    opt_age_13_18: "13 to 18 years",
+
+    q_peds_fever: "Does the child have a fever (above 38°C)?",
+    q_peds_symptoms_duration: "How long has the child been sick?",
+    opt_less_2days: "Less than 2 days",
+    opt_2_7days: "2 to 7 days",
+    opt_more_week: "More than a week",
+
+    q_peds_allergies: "Does the child have known allergies?",
+    q_peds_vaccinations: "Are the child's vaccinations up to date?",
+    opt_complete: "Yes, complete",
+    opt_partial: "Partially",
+
+    // Ophthalmology questions
+    q_opht_blurry_vision: "Do you suffer from blurry vision?",
+    q_opht_spots_flashes: "Do you see spots or flashes of light?",
+    q_opht_glasses: "Do you wear glasses or contact lenses?",
+    opt_glasses: "Glasses",
+    opt_lenses: "Lenses",
+
+    q_opht_dry_eyes: "Do you often have dry or itchy eyes?",
+    q_opht_family_eye: "Is there a history of eye disease in your family (glaucoma, cataracts…)?",
   },
   nl: {
     appTitle: "ZAS Ziekenhuis - Afspraak maken",
@@ -127,6 +253,7 @@ const translations = {
     step1Title: "1. Kies een arts",
     step2Title: "2. Datum en Tijd",
     step3Title: "3. Uw gegevens",
+    step4Title: "4. Medische vragenlijst",
     doctorLabel: "Kies een arts",
     doctorPlaceholder: "Selecteer een arts...",
     specialtyLabel: "Naar welke specialiteit bent u op zoek?",
@@ -145,9 +272,10 @@ const translations = {
     errorEmail: "Voer een geldig e-mailadres in.",
     nextButton: "Volgende stap",
     backButton: "Terug",
+    backHome: "Terug naar begin",
     submitButton: "Afspraak bevestigen",
     successTitle: "Afspraak bevestigd!",
-    successMessage: "Uw afspraak is opgeslagen. Er is een bevestigingsmail met de details van uw afspraak naar u verzonden.",
+    successMessage: "Uw afspraak is opgeslagen. Er is een bevestigingsmail naar u verzonden.",
     addressLabel: "Volledig adres (optioneel)",
     notesLabel: "Opmerkingen of specifieke behoeften (optioneel)",
     bankDisclaimer: "🔒 Wij vragen niet om gevoelige persoonlijke of bankgegevens.",
@@ -157,6 +285,7 @@ const translations = {
     errorRequired: "Oeps! Het lijkt erop dat u bent vergeten dit in te vullen. Selecteer het om door te gaan.",
     errorPhone: "Dit telefoonnummer lijkt onvolledig of onjuist. Kunt u het controleren?",
     errorDate: "Kies een datum in de toekomst. De kalender staat er net boven!",
+    errorQuestionnaire: "Beantwoord alle vragen voor u bevestigt.",
     chatGreeting: "Hallo! Heeft u hulp nodig bij het maken van uw afspraak?",
     chatTooComplicated: "Het is te ingewikkeld",
     chatCallUs: "Maak je geen zorgen! U kunt ons rechtstreeks bellen op:",
@@ -170,7 +299,6 @@ const translations = {
     noAppointments: "U heeft geen afspraken gepland.",
     cancelBtn: "❌ Annuleren",
     modifyBtn: "✏️ Wijzigen",
-    modifyBtn: "✏️ Wijzigen",
     doctor: "Arts",
     date: "Datum",
     time: "Tijd",
@@ -179,7 +307,68 @@ const translations = {
     passwordLabel: "Toegangscode",
     loginBtn: "Inloggen",
     invalidPassword: "Onjuiste code. Probeer 1234.",
-    doctorDashboardTitle: "Arts Dashboard"
+    doctorDashboardTitle: "Arts Dashboard",
+    questionnaireNotice: "Bij stap 4 volgt een korte medische vragenlijst.",
+    questionnaireIntro: "Beantwoord de volgende vragen om uw consultatie voor te bereiden. Dit helpt de arts u beter te ontvangen.",
+
+    // Gedeelde antwoordopties
+    opt_yes: "Ja",
+    opt_no: "Nee",
+    opt_sometimes: "Soms",
+    opt_unknown: "Ik weet het niet",
+
+    // Cardiologie vragen
+    q_cardio_chest_pain: "Heeft u pijn of druk op de borst?",
+    q_cardio_shortness_breath: "Heeft u kortademigheid bij lichamelijke inspanning?",
+    q_cardio_palpitations: "Heeft u last van hartkloppingen (hart dat sterk of onregelmatig klopt)?",
+    q_cardio_family_history: "Is er een familiegeschiedenis van hartziekten?",
+    q_cardio_blood_pressure: "Heeft u hoge bloeddruk of verhoogd cholesterol?",
+
+    // Orthopedie vragen
+    q_ortho_pain_location: "Waar heeft u pijn?",
+    opt_shoulder: "Schouder",
+    opt_knee: "Knie",
+    opt_hip: "Heup",
+    opt_back: "Rug",
+    opt_other: "Anders",
+
+    q_ortho_pain_duration: "Hoe lang heeft u al deze pijn?",
+    opt_less_week: "Minder dan een week",
+    opt_one_month: "Ongeveer een maand",
+    opt_several_months: "Meerdere maanden",
+    opt_more_year: "Meer dan een jaar",
+
+    q_ortho_accident: "Is de pijn begonnen na een val of ongeluk?",
+    q_ortho_daily_limit: "Beperkt de pijn uw dagelijkse activiteiten?",
+    q_ortho_previous_surgery: "Heeft u eerder een operatie gehad aan dit gebied?",
+
+    // Pediatrie vragen
+    q_peds_child_age: "Hoe oud is het kind?",
+    opt_age_0_2: "0 tot 2 jaar",
+    opt_age_3_6: "3 tot 6 jaar",
+    opt_age_7_12: "7 tot 12 jaar",
+    opt_age_13_18: "13 tot 18 jaar",
+
+    q_peds_fever: "Heeft het kind koorts (boven 38°C)?",
+    q_peds_symptoms_duration: "Hoe lang is het kind al ziek?",
+    opt_less_2days: "Minder dan 2 dagen",
+    opt_2_7days: "2 tot 7 dagen",
+    opt_more_week: "Meer dan een week",
+
+    q_peds_allergies: "Heeft het kind bekende allergieën?",
+    q_peds_vaccinations: "Zijn de vaccinaties van het kind up-to-date?",
+    opt_complete: "Ja, volledig",
+    opt_partial: "Gedeeltelijk",
+
+    // Oogheelkunde vragen
+    q_opht_blurry_vision: "Heeft u last van wazig zicht?",
+    q_opht_spots_flashes: "Ziet u vlekken of lichtflitsen?",
+    q_opht_glasses: "Draagt u een bril of contactlenzen?",
+    opt_glasses: "Bril",
+    opt_lenses: "Lenzen",
+
+    q_opht_dry_eyes: "Heeft u vaak last van droge of jeukende ogen?",
+    q_opht_family_eye: "Is er een familiegeschiedenis van oogziekten (glaucoom, staar…)?",
   }
 };
 
