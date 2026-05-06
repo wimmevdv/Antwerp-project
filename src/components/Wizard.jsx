@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useI18n } from '../i18n';
+import emailjs from '@emailjs/browser';
 
 const doctors = [
   { id: '1', name: 'Dr. Janssens', specialty: 'spec_cardiology' },
@@ -9,10 +10,11 @@ const doctors = [
 ];
 
 const Wizard = ({ onReset }) => {
-  const { t } = useI18n();
+  const { t, lang } = useI18n();
   const [step, setStep] = useState(1);
   const [isSuccess, setIsSuccess] = useState(false);
   const [guideMode, setGuideMode] = useState(false);
+  const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
   
   // Form State
   const [formData, setFormData] = useState({
@@ -23,7 +25,9 @@ const Wizard = ({ onReset }) => {
     firstName: '',
     lastName: '',
     phone: '',
-    email: ''
+    email: '',
+    address: '',
+    notes: ''
   });
 
   // Errors State
@@ -45,17 +49,9 @@ const Wizard = ({ onReset }) => {
 
   const validateStep2 = () => {
     const newErrors = {};
-    if (!formData.date) newErrors.date = t('errorRequired');
-    else {
-      const selectedDate = new Date(formData.date);
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      if (selectedDate < today) newErrors.date = t('errorDate');
-    }
-    
-    // Only check time if date is valid so we don't overwhelm with errors
-    if (!newErrors.date && !formData.time) {
-       newErrors.time = t('errorRequired');
+    if (!formData.date || !formData.time) {
+      newErrors.date = t('errorRequired');
+      newErrors.time = t('errorRequired');
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -66,6 +62,33 @@ const Wizard = ({ onReset }) => {
     return true;
   };
 
+  // Weekly Calendar Logic
+  const generateWeekDays = () => {
+    const days = [];
+    const today = new Date();
+    today.setHours(0,0,0,0);
+    
+    const currentDayOfWeek = today.getDay();
+    const distanceToMonday = currentDayOfWeek === 0 ? 6 : currentDayOfWeek - 1;
+    
+    const startOfWeek = new Date(today);
+    startOfWeek.setDate(today.getDate() - distanceToMonday + (currentWeekOffset * 7));
+
+    for (let i = 0; i < 5; i++) {
+      const date = new Date(startOfWeek);
+      date.setDate(startOfWeek.getDate() + i);
+      days.push(date);
+    }
+    return days;
+  };
+
+  const handleTimeSlotSelect = (dateStr, timeStr) => {
+    setFormData(prev => ({ ...prev, date: dateStr, time: timeStr }));
+    if (errors.date || errors.time) {
+      setErrors(prev => ({ ...prev, date: null, time: null }));
+    }
+  };
+
   const validateStep3 = () => {
     const newErrors = {};
     if (!formData.firstName) newErrors.firstName = t('errorRequired');
@@ -74,6 +97,10 @@ const Wizard = ({ onReset }) => {
       newErrors.phone = t('errorRequired');
     } else if (formData.phone.length < 8) {
       newErrors.phone = t('errorPhone');
+    } else if (!formData.email) {
+      newErrors.email = t('errorRequired');
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = t('errorEmail');
     }
     
     if (Object.keys(newErrors).length > 0) {
@@ -110,7 +137,24 @@ const Wizard = ({ onReset }) => {
         lastName: formData.lastName
       });
       localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
-      setIsSuccess(true);
+      
+      const templateParams = {
+        to_email: formData.email,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        date: formData.date,
+        time: formData.time,
+      };
+
+      emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams, "YOUR_PUBLIC_KEY")
+        .then((response) => {
+          console.log('SUCCESS!', response.status, response.text);
+          setIsSuccess(true);
+        })
+        .catch((err) => {
+          console.error('FAILED...', err);
+          setIsSuccess(true);
+        });
     }
   };
 
@@ -139,8 +183,7 @@ const Wizard = ({ onReset }) => {
       return fieldName === 'nextBtn';
     }
     if (step === 2) {
-      if (!formData.date) return fieldName === 'date';
-      if (!formData.time) return fieldName === 'time';
+      if (!formData.date || !formData.time) return fieldName === 'timeSlot';
       return fieldName === 'nextBtn';
     }
     if (step === 3) {
@@ -247,46 +290,81 @@ const Wizard = ({ onReset }) => {
       {step === 2 && (
         <div className="fade-in">
           <h2>{t('step2Title')}</h2>
-          <div className="form-group">
-            {showCursor('date') && <div className="guide-cursor">👆</div>}
-            <label htmlFor="date">{t('dateLabel')}</label>
-            <input 
-              type="date" 
-              id="date"
-              name="date" 
-              value={formData.date} 
-              onChange={handleChange}
-              className={errors.date ? 'error' : ''}
-              aria-invalid={!!errors.date}
-            />
-            {errors.date && <div className="error-message">⚠️ {errors.date}</div>}
-          </div>
           
-          {formData.date && (
-            <div className="form-group fade-in">
-              {showCursor('time') && <div className="guide-cursor">👆</div>}
-              <label htmlFor="time">{t('timeLabel')}</label>
-              <select 
-                id="time"
-                name="time" 
-                value={formData.time} 
-                onChange={handleChange}
-                className={errors.time ? 'error' : ''}
-                aria-invalid={!!errors.time}
-              >
-                <option value="">{t('timePlaceholder')}</option>
-                {['09:00', '09:30', '10:00', '10:30', '11:00', '14:00', '14:30', '15:00', '15:30']
-                  .filter(timeSlot => {
-                    const booked = JSON.parse(localStorage.getItem('bookedSlots') || '[]');
-                    return !booked.some(b => b.doctorId === formData.doctorId && b.date === formData.date && b.time === timeSlot);
-                  })
-                  .map(t => (
-                  <option key={t} value={t}>{t}</option>
-                ))}
-              </select>
-              {errors.time && <div className="error-message">⚠️ {errors.time}</div>}
-            </div>
-          )}
+          <div className="calendar-header">
+            <button 
+              className="secondary" 
+              onClick={() => setCurrentWeekOffset(prev => prev - 1)}
+              disabled={currentWeekOffset <= 0}
+            >
+              &lt; {t('prevWeek')}
+            </button>
+            <h3>{t('weekOf')} {generateWeekDays()[0].toLocaleDateString(lang, { day: 'numeric', month: 'long' })}</h3>
+            <button 
+              className="secondary" 
+              onClick={() => setCurrentWeekOffset(prev => prev + 1)}
+            >
+              {t('nextWeek')} &gt;
+            </button>
+          </div>
+
+          <div className="calendar-grid">
+            {generateWeekDays().map((date, idx) => {
+              const dateStr = date.toISOString().split('T')[0];
+              const isToday = new Date().toISOString().split('T')[0] === dateStr;
+              const isPastDate = date < new Date(new Date().setHours(0,0,0,0));
+              
+              let showFirstCursor = false;
+              if (showCursor('timeSlot') && !formData.time) {
+                 // The logic for the cursor can just be placed on the grid itself, or we skip complex cursor logic for the calendar grid
+                 // We will just show the cursor on the nextBtn if selected, otherwise maybe just a generic place.
+              }
+
+              return (
+                <div key={dateStr} className="calendar-day">
+                  <div className="calendar-day-header">
+                    <strong>{date.toLocaleDateString(lang, { weekday: 'long' })}</strong>
+                    <span>{date.getDate()}</span>
+                  </div>
+                  <div className="calendar-slots">
+                    {isPastDate ? (
+                      <div style={{textAlign: 'center', padding: '1rem', color: '#a0a0a0'}}>-</div>
+                    ) : (
+                      ['09:00', '09:30', '10:00', '10:30', '11:00', '14:00', '14:30', '15:00', '15:30'].map((timeSlot, tIdx) => {
+                        const booked = JSON.parse(localStorage.getItem('bookedSlots') || '[]');
+                        const isBooked = booked.some(b => b.doctorId === formData.doctorId && b.date === dateStr && b.time === timeSlot);
+                        const isSelected = formData.date === dateStr && formData.time === timeSlot;
+                        
+                        let isPastTime = false;
+                        if (isToday) {
+                          const [h, m] = timeSlot.split(':');
+                          const slotTime = new Date();
+                          slotTime.setHours(parseInt(h), parseInt(m), 0, 0);
+                          isPastTime = slotTime < new Date();
+                        }
+                        
+                        const isDisabled = isBooked || isPastTime;
+                        
+                        return (
+                          <div style={{ position: 'relative' }} key={timeSlot}>
+                            {showCursor('timeSlot') && !isDisabled && !formData.time && !showFirstCursor && (() => { showFirstCursor = true; return <div className="guide-cursor" style={{right: '-20px', top: '0px', zIndex: 100, fontSize: '3rem'}}>👆</div>; })()}
+                            <button
+                              className={`time-slot ${isSelected ? 'selected' : ''}`}
+                              disabled={isDisabled}
+                              onClick={() => handleTimeSlotSelect(dateStr, timeSlot)}
+                            >
+                              {timeSlot}
+                            </button>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          {(errors.date || errors.time) && <div className="error-message" style={{marginTop: '1rem'}}>⚠️ {t('errorRequired')}</div>}
         </div>
       )}
 
@@ -343,7 +421,34 @@ const Wizard = ({ onReset }) => {
               name="email" 
               value={formData.email} 
               onChange={handleChange}
+              className={errors.email ? 'error' : ''}
+              aria-invalid={!!errors.email}
             />
+            {errors.email && <div className="error-message">⚠️ {errors.email}</div>}
+          </div>
+          <div className="form-group">
+            <label htmlFor="address">{t('addressLabel')}</label>
+            <input 
+              type="text" 
+              id="address"
+              name="address" 
+              value={formData.address} 
+              onChange={handleChange}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="notes">{t('notesLabel')}</label>
+            <textarea 
+              id="notes"
+              name="notes" 
+              value={formData.notes} 
+              onChange={handleChange}
+              rows="3"
+              style={{ width: '100%', padding: '0.8rem', borderRadius: '8px', border: '2px solid var(--border-color)', fontSize: '1.2rem', fontFamily: 'inherit' }}
+            />
+          </div>
+          <div className="info-banner" style={{ marginTop: '1.5rem', padding: '1rem', backgroundColor: '#e8f4fd', borderRadius: '8px', color: '#0056b3', display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <span>{t('bankDisclaimer')}</span>
           </div>
         </div>
       )}
