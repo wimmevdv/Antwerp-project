@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState } from 'react';
 
 const translations = {
   fr: {
+    // Campus
+    campus_label: "Votre rendez-vous a lieu au",
+    campus_middelheim: "Campus Middelheim",
+    campus_stuivenberg: "Campus Stuivenberg",
+    campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_maps: "Voir sur Google Maps",
+    campus_email_line: "📍 Lieu de votre rendez-vous :",
     // Appointments overview
     aov_title: "Vos rendez-vous à venir",
     aov_empty: "Vous n'avez aucun rendez-vous planifié.",
@@ -161,6 +168,13 @@ const translations = {
     q_opht_family_eye: "Y a-t-il des maladies oculaires dans votre famille (glaucome, cataracte…) ?",
   },
   en: {
+    // Campus
+    campus_label: "Your appointment is at",
+    campus_middelheim: "Campus Middelheim",
+    campus_stuivenberg: "Campus Stuivenberg",
+    campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_maps: "View on Google Maps",
+    campus_email_line: "📍 Location of your appointment:",
     // Appointments overview
     aov_title: "Your upcoming appointments",
     aov_empty: "You have no appointments scheduled.",
@@ -320,6 +334,13 @@ const translations = {
     q_opht_family_eye: "Is there a history of eye disease in your family (glaucoma, cataracts…)?",
   },
   nl: {
+    // Campus
+    campus_label: "Uw afspraak vindt plaats op",
+    campus_middelheim: "Campus Middelheim",
+    campus_stuivenberg: "Campus Stuivenberg",
+    campus_sint_erasmus: "Campus Sint-Erasmus",
+    campus_maps: "Bekijk op Google Maps",
+    campus_email_line: "📍 Locatie van uw afspraak:",
     // Appointments overview
     aov_title: "Uw komende afspraken",
     aov_empty: "U heeft geen afspraken gepland.",

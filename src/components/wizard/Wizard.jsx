@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useI18n } from '../../i18n';
 import { questionnaires } from '../../data/questionnaires';
+import { getCampusForSpecialty } from '../../data/campuses';
 import { saveAppointment, sendConfirmationEmail } from '../../services/appointmentService';
 import WizardStepIndicator from './WizardStepIndicator';
+import CampusBadge from '../CampusBadge';
 import Step1Email from './steps/Step1Email';
 import Step2Doctor from './steps/Step2Doctor';
 import Step3Calendar from './steps/Step3Calendar';
@@ -28,6 +30,7 @@ const Wizard = ({ onReset }) => {
   const currentQuestions = questionnaires[formData.specialty] ?? [];
   const needsQuestionnaire = currentQuestions.length > 0;
   const totalSteps = needsQuestionnaire ? 4 : 3;
+  const campus = getCampusForSpecialty(formData.specialty);
 
   // ── Validation ───────────────────────────────────────────────────────────
 
@@ -79,10 +82,13 @@ const Wizard = ({ onReset }) => {
     const valid = step === 4 ? validateStep4() : validateStep3();
     if (!valid) return;
 
-    saveAppointment({ formData, questionnaireAnswers, needsQuestionnaire });
+    saveAppointment({ formData, questionnaireAnswers, needsQuestionnaire, campus });
 
     const subject = t('emailSubject');
-    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.\n\n${t('emailClosing')}`;
+    const campusLine = campus
+      ? `\n\n${t('campus_email_line')}\n${t(campus.nameKey)}\n📍 ${campus.address}`
+      : '';
+    const message = `${t('emailGreeting')},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.${campusLine}\n\n${t('emailClosing')}`;
 
     sendConfirmationEmail(formData, subject, message)
       .then(() => setIsSuccess(true))
@@ -145,13 +151,18 @@ const Wizard = ({ onReset }) => {
 
   if (isSuccess) {
     return (
-      <div className="card fade-in" style={{ textAlign: 'center', padding: '4rem 2rem' }}>
-        <div style={{ fontSize: '6rem', marginBottom: '1rem' }}>✅</div>
-        <h2 style={{ fontSize: '2.5rem' }}>{t('successTitle')}</h2>
-        <p style={{ fontSize: '1.5rem', color: 'var(--text-muted)' }}>{t('successMessage')}</p>
+      <div className="card fade-in" style={{ padding: '3rem 2rem' }}>
+        <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+          <div style={{ fontSize: '6rem', marginBottom: '1rem' }}>✅</div>
+          <h2 style={{ fontSize: '2.5rem' }}>{t('successTitle')}</h2>
+          <p style={{ fontSize: '1.4rem', color: 'var(--text-muted)' }}>{t('successMessage')}</p>
+        </div>
+
+        {campus && <CampusBadge campus={campus} />}
+
         <button
           className="primary"
-          style={{ marginTop: '3rem', fontSize: '1.5rem', padding: '20px 40px' }}
+          style={{ marginTop: '2.5rem', fontSize: '1.5rem', padding: '20px 40px', width: '100%' }}
           onClick={onReset}
         >
           {t('backHome')}

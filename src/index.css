@@ -468,6 +468,91 @@ button {
 }
 
 /* ═══════════════════════════════════════════════════════════════
+   CAMPUS BADGE
+═══════════════════════════════════════════════════════════════ */
+
+/* Grote versie — succes-scherm & wizard */
+.campus-badge {
+  background: #e8f5f2;
+  border: 2px solid var(--primary-color);
+  border-radius: 16px;
+  padding: 1.6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.campus-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.campus-badge-icon { font-size: 2.8rem; line-height: 1; }
+
+.campus-badge-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--primary-color);
+  opacity: 0.8;
+}
+
+.campus-badge-name {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  line-height: 1.2;
+}
+
+.campus-badge-address,
+.campus-badge-transport {
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.campus-badge-maps {
+  display: inline-block;
+  margin-top: 0.4rem;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Compacte versie — afspraken-overzicht */
+.campus-badge-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin-top: 6px;
+  flex-wrap: wrap;
+}
+
+.campus-badge-compact-icon { font-size: 1.2rem; }
+
+.campus-badge-compact-name {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.campus-badge-compact-addr {
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ═══════════════════════════════════════════════════════════════
    APPOINTMENTS OVERVIEW  (ouderenvriendelijk — grote tekst)
 ═══════════════════════════════════════════════════════════════ */
 

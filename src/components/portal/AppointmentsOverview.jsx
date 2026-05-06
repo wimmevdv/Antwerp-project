@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useI18n } from '../../i18n';
 import { doctors } from '../../data/doctors';
+import { campuses, getCampusForSpecialty } from '../../data/campuses';
 import { getBookedSlots } from '../../services/appointmentService';
+import CampusBadge from '../CampusBadge';
 
 const SPECIALTY_META = {
   spec_cardiology:   { icon: '🫀', color: '#c0392b', bg: '#fdf0ef' },
@@ -32,7 +34,10 @@ const AppointmentsOverview = ({ onBookAppointment }) => {
     const enriched = raw
       .map(slot => {
         const doctor = doctors.find(d => d.id === slot.doctorId);
-        return { ...slot, doctor };
+        const campus = slot.campusId
+          ? campuses[slot.campusId]
+          : doctor ? getCampusForSpecialty(doctor.specialty) : null;
+        return { ...slot, doctor, campus };
       })
       .filter(slot => slot.doctor && isUpcoming(slot.date, slot.time))
       .sort((a, b) => {
@@ -94,6 +99,7 @@ const AppointmentsOverview = ({ onBookAppointment }) => {
                     <span className="aov-card-date">📅 {formatDate(slot.date, lang)}</span>
                     <span className="aov-card-time">🕐 {slot.time}</span>
                   </div>
+                  {slot.campus && <CampusBadge campus={slot.campus} compact />}
                 </div>
 
                 <button
