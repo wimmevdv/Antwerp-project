@@ -154,12 +154,13 @@ const Wizard = ({ onReset }) => {
     });
     localStorage.setItem('bookedSlots', JSON.stringify(bookedSlots));
 
+    const emailSubject = t('emailSubject');
+    const emailMessage = `${t('emailGreeting')} ${formData.firstName} ${formData.lastName},\n\n${t('emailBody')} ${formData.date} ${t('at')} ${formData.time}.\n\n${t('emailClosing')}`;
+
     const templateParams = {
       to_email: formData.email,
-      first_name: formData.firstName,
-      last_name: formData.lastName,
-      date: formData.date,
-      time: formData.time,
+      subject: emailSubject,
+      message: emailMessage,
     };
 
     emailjs.send("service_z3oiuww", "template_jewyixe", templateParams, "1-6DRGxOV4Ph6kX5a")
