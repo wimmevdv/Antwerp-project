@@ -4,6 +4,15 @@ import { isSlotBooked } from '../../../services/appointmentService';
 
 const TIME_SLOTS = ['09:00', '09:30', '10:00', '10:30', '11:00', '14:00', '14:30', '15:00', '15:30'];
 
+/** Format a Date object as "YYYY-MM-DD" using LOCAL time (not UTC). */
+function toLocalDateStr(date) {
+  return [
+    date.getFullYear(),
+    String(date.getMonth() + 1).padStart(2, '0'),
+    String(date.getDate()).padStart(2, '0'),
+  ].join('-');
+}
+
 function generateWeekDays(weekOffset) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -24,7 +33,9 @@ function generateWeekDays(weekOffset) {
 const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffset, onTimeSlotSelect, showCursor }) => {
   const { t, lang } = useI18n();
   const weekDays = generateWeekDays(currentWeekOffset);
-  const todayStr = new Date().toISOString().split('T')[0];
+
+  // Use LOCAL date string so it matches what isUpcoming() reconstructs
+  const todayStr = toLocalDateStr(new Date());
 
   return (
     <div className="fade-in">
@@ -46,7 +57,8 @@ const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffs
 
       <div className="calendar-grid">
         {weekDays.map(date => {
-          const dateStr = date.toISOString().split('T')[0];
+          // LOCAL date string — consistent with isUpcoming() and localStorage
+          const dateStr = toLocalDateStr(date);
           const isToday = dateStr === todayStr;
           const isPast = date < new Date(new Date().setHours(0, 0, 0, 0));
           let showFirstCursor = false;
@@ -69,7 +81,7 @@ const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffs
                     if (isToday) {
                       const [h, m] = slot.split(':');
                       const slotDate = new Date();
-                      slotDate.setHours(parseInt(h), parseInt(m), 0, 0);
+                      slotDate.setHours(parseInt(h, 10), parseInt(m, 10), 0, 0);
                       pastTime = slotDate < new Date();
                     }
 
@@ -83,7 +95,6 @@ const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffs
                         })()}
                         <button
                           className={`time-slot${selected ? ' selected' : ''}`}
-                          disabled={false}
                           onClick={() => onTimeSlotSelect(dateStr, slot)}
                         >
                           {slot}
