@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { I18nProvider, useI18n } from './i18n';
 import LanguageSelector from './components/LanguageSelector';
-import Wizard from './components/Wizard';
+import Wizard from './components/wizard/Wizard';
 import ChatHelper from './components/ChatHelper';
 import DoctorLogin from './components/DoctorLogin';
 import DoctorDashboard from './components/DoctorDashboard';
