@@ -1,0 +1,306 @@
+:root {
+  --primary-color: #1b6255; /* ZAS Teal */
+  --primary-hover: #13483e;
+  --error-color: #d93829;
+  --error-bg: #fdf2f1;
+  --bg-color: #f5f8f7; /* Very light, soft teal-gray */
+  --card-bg: #ffffff;
+  --text-main: #1f302d;
+  --text-muted: #576d68;
+  --border-color: #cbd5d1;
+  
+  --radius-lg: 12px;
+  --radius-md: 8px;
+  --radius-sm: 4px;
+  
+  --font-base: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-base);
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  line-height: 1.6;
+  font-size: 18px;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+
+button {
+  font-family: var(--font-base);
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+button.primary {
+  background-color: var(--primary-color);
+  color: white;
+  box-shadow: 0 4px 6px rgba(0, 90, 156, 0.2);
+}
+
+button.primary:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 90, 156, 0.3);
+}
+
+button.primary:active {
+  transform: translateY(0);
+}
+
+button.secondary {
+  background-color: white;
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+}
+
+button.secondary:hover {
+  background-color: #f0f7ff;
+}
+
+button:focus-visible, input:focus-visible, select:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+input, select {
+  font-family: var(--font-base);
+  width: 100%;
+  padding: 16px;
+  font-size: 1.1rem;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  transition: border-color 0.2s;
+  color: var(--text-main);
+}
+
+input:focus, select:focus {
+  border-color: var(--primary-color);
+}
+
+input.error, select.error {
+  border-color: var(--error-color);
+  background-color: var(--error-bg);
+}
+
+.error-message {
+  color: var(--error-color);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  background-color: var(--error-bg);
+  border-left: 4px solid var(--error-color);
+}
+
+/* Utils */
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-lg);
+  padding: 2.5rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  border: 1px solid var(--border-color);
+}
+
+.fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  position: relative; /* Fix pour le curseur interactif */
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--text-main);
+}
+
+/* Header & Language selector */
+.header {
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+}
+
+/* Chat Helper */
+.chat-widget {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.chat-bubble {
+  background: white;
+  border-radius: var(--radius-md);
+  padding: 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-bottom: 1rem;
+  width: 320px;
+  border: 1px solid var(--border-color);
+  transform-origin: bottom right;
+  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.chat-helper-btn {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 90, 156, 0.4);
+  cursor: pointer;
+  border: none;
+  transition: transform 0.2s;
+}
+
+.chat-helper-btn:hover {
+  transform: scale(1.05);
+}
+
+/* Kiosk Specific Styles */
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, select {
+  padding: 20px;
+  font-size: 1.3rem;
+}
+
+button {
+  padding: 16px 32px;
+  font-size: 1.3rem;
+}
+
+.splash-screen {
+  position: fixed;
+  inset: 0;
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+  cursor: pointer;
+}
+
+.splash-screen h1 {
+  color: white;
+  font-size: 4rem;
+  margin-top: 2rem;
+  animation: pulseText 2s infinite;
+  text-align: center;
+}
+
+@keyframes pulseText {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.guide-cursor {
+  position: absolute;
+  font-size: 4rem;
+  z-index: 50;
+  animation: pointAndBounce 1.5s infinite;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+  right: -20px;
+  top: 30px;
+}
+
+@keyframes pointAndBounce {
+  0%, 100% { transform: translate(-30px, 10px) rotate(-30deg); }
+  50% { transform: translate(-10px, 0px) rotate(-10deg); }
+}
+
+.guide-toggle {
+  background: #fef08a;
+  color: #854d0e;
+  border: 2px solid #eab308;
+  border-radius: var(--radius-sm);
+  padding: 12px 24px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.2rem;
+  width: 100%;
+  margin-bottom: 2rem;
+  transition: transform 0.2s;
+}
+
+.guide-toggle:active {
+  transform: scale(0.98);
+}
