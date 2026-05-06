@@ -396,7 +396,7 @@ const Wizard = ({ onReset }) => {
                           <div style={{ position: 'relative' }} key={timeSlot}>
                             {showCursor('timeSlot') && !isDisabled && !formData.time && !showFirstCursor && (() => { showFirstCursor = true; return <div className="guide-cursor" style={{right: '-20px', top: '0px', zIndex: 100, fontSize: '3rem'}}>👆</div>; })()}
                             <button
-                              className={`time-slot ${isSelected ? 'selected' : ''}`}
+                              className={`time-slot ${isSelected ? 'selected' : ''} ${isBooked ? 'booked' : ''}`}
                               disabled={isDisabled}
                               onClick={() => handleTimeSlotSelect(dateStr, timeSlot)}
                             >

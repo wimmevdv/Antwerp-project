@@ -401,6 +401,7 @@ button {
   border-color: #e0e0e0;
 }
 
+<<<<<<< HEAD
 /* Questionnaire Step 4 */
 .questionnaire-question {
   background: var(--bg-color);
@@ -458,4 +459,11 @@ button {
   border-color: var(--primary-color);
   color: white;
   box-shadow: 0 4px 10px rgba(27, 98, 85, 0.3);
+=======
+.time-slot.booked {
+  background: #ffebeb;
+  color: #d93829;
+  border-color: #ffcdcd;
+  opacity: 0.8;
+>>>>>>> c655e9f (Update: booked slots pale red color)
 }
