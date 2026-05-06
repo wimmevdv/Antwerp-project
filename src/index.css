@@ -1,13 +1,13 @@
 :root {
-  --primary-color: #1b6255; /* ZAS Teal */
-  --primary-hover: #13483e;
-  --error-color: #d93829;
-  --error-bg: #fdf2f1;
-  --bg-color: #f5f8f7; /* Very light, soft teal-gray */
+  --primary-color: #4f8b79; /* Mellow sage/teal */
+  --primary-hover: #3f7766;
+  --error-color: #d95a4a;
+  --error-bg: #fff2f0;
+  --bg-color: #fbfdfa; /* very soft off-white */
   --card-bg: #ffffff;
-  --text-main: #1f302d;
-  --text-muted: #576d68;
-  --border-color: #cbd5d1;
+  --text-main: #213733; /* soft dark */
+  --text-muted: #617a75;
+  --border-color: #e2e8e5;
   
   --radius-lg: 12px;
   --radius-md: 8px;
@@ -27,7 +27,7 @@ body {
   background-color: var(--bg-color);
   color: var(--text-main);
   line-height: 1.6;
-  font-size: 18px;
+  font-size: 16px;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -60,13 +60,13 @@ button {
 button.primary {
   background-color: var(--primary-color);
   color: white;
-  box-shadow: 0 4px 6px rgba(0, 90, 156, 0.2);
+  box-shadow: 0 6px 12px rgba(33, 55, 51, 0.06);
 }
 
 button.primary:hover {
   background-color: var(--primary-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 12px rgba(0, 90, 156, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(33, 55, 51, 0.07);
 }
 
 button.primary:active {
@@ -91,17 +91,18 @@ button:focus-visible, input:focus-visible, select:focus-visible {
 input, select {
   font-family: var(--font-base);
   width: 100%;
-  padding: 16px;
-  font-size: 1.1rem;
-  border: 2px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-size: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
   background-color: white;
-  transition: border-color 0.2s;
+  transition: border-color 0.18s, box-shadow 0.18s;
   color: var(--text-main);
 }
 
 input:focus, select:focus {
-  border-color: var(--primary-color);
+  border-color: rgba(79,139,121,0.9);
+  box-shadow: 0 6px 16px rgba(79,139,121,0.06);
 }
 
 input.error, select.error {
@@ -133,10 +134,10 @@ input.error, select.error {
 
 .card {
   background: var(--card-bg);
-  border-radius: var(--radius-lg);
-  padding: 2.5rem;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
-  margin-bottom: 2rem;
+  border-radius: calc(var(--radius-lg) + 4px);
+  padding: 2rem;
+  box-shadow: 0 6px 18px rgba(33, 55, 51, 0.04);
+  margin-bottom: 1.5rem;
   border: 1px solid var(--border-color);
 }
 
@@ -190,14 +191,14 @@ input.error, select.error {
 
 .chat-bubble {
   background: white;
-  border-radius: var(--radius-md);
-  padding: 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  margin-bottom: 1rem;
-  width: 320px;
+  border-radius: calc(var(--radius-md) + 2px);
+  padding: 1.25rem;
+  box-shadow: 0 8px 22px rgba(33, 55, 51, 0.06);
+  margin-bottom: 0.75rem;
+  width: 300px;
   border: 1px solid var(--border-color);
   transform-origin: bottom right;
-  animation: scaleIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  animation: scaleIn 0.26s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 @keyframes scaleIn {
@@ -206,23 +207,24 @@ input.error, select.error {
 }
 
 .chat-helper-btn {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
   background-color: var(--primary-color);
   color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2rem;
-  box-shadow: 0 10px 25px rgba(0, 90, 156, 0.4);
+  font-size: 1.55rem;
+  box-shadow: 0 8px 18px rgba(33, 55, 51, 0.08);
   cursor: pointer;
   border: none;
-  transition: transform 0.2s;
+  transition: transform 0.18s, box-shadow 0.18s;
 }
 
 .chat-helper-btn:hover {
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(33, 55, 51, 0.09);
 }
 
 /* Kiosk Specific Styles */
@@ -232,13 +234,14 @@ body {
 }
 
 input, select {
-  padding: 20px;
-  font-size: 1.3rem;
+  padding: 18px;
+  font-size: 1.15rem;
 }
 
 button {
-  padding: 16px 32px;
-  font-size: 1.3rem;
+  padding: 14px 28px;
+  font-size: 1.05rem;
+  border-radius: var(--radius-lg);
 }
 
 .splash-screen {
