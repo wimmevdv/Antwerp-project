@@ -82,7 +82,7 @@ const Step2Calendar = ({ formData, errors, currentWeekOffset, setCurrentWeekOffs
                           return <div className="guide-cursor" style={{ right: '-20px', top: '0px', zIndex: 100, fontSize: '3rem' }}>👆</div>;
                         })()}
                         <button
-                          className={`time-slot${selected ? ' selected' : ''}`}
+                          className={`time-slot${selected ? ' selected' : ''}${booked ? ' booked' : ''}`}
                           disabled={disabled}
                           onClick={() => onTimeSlotSelect(dateStr, slot)}
                         >
