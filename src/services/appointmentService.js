@@ -9,7 +9,7 @@ export function getBookedSlots() {
   return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
 }
 
-export function saveAppointment({ formData, questionnaireAnswers, needsQuestionnaire, campus }) {
+export function saveAppointment({ formData, questionnaireAnswers, questionnaireNotes, needsQuestionnaire, campus }) {
   const slots = getBookedSlots();
   slots.push({
     doctorId:      formData.doctorId,
@@ -18,6 +18,7 @@ export function saveAppointment({ formData, questionnaireAnswers, needsQuestionn
     email:         formData.email,
     campusId:      campus?.id ?? null,
     questionnaire: needsQuestionnaire ? questionnaireAnswers : null,
+    notes:         questionnaireNotes?.trim() || null,
   });
   localStorage.setItem(STORAGE_KEY, JSON.stringify(slots));
 }

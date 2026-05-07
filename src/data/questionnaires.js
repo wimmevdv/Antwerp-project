@@ -27,4 +27,25 @@ export const questionnaires = {
     { id: 'dry_eyes',       questionKey: 'q_opht_dry_eyes',       options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
     { id: 'family_eye',     questionKey: 'q_opht_family_eye',     options: ['opt_yes', 'opt_no', 'opt_unknown'] },
   ],
+  spec_neurology: [
+    { id: 'headache_freq',   questionKey: 'q_neuro_headache_freq',   options: ['opt_daily', 'opt_weekly', 'opt_monthly', 'opt_rarely'] },
+    { id: 'dizziness',       questionKey: 'q_neuro_dizziness',       options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'numbness',        questionKey: 'q_neuro_numbness',        options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'memory_issues',   questionKey: 'q_neuro_memory_issues',   options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'seizures',        questionKey: 'q_neuro_seizures',        options: ['opt_yes', 'opt_no'] },
+  ],
+  spec_dermatology: [
+    { id: 'skin_location',   questionKey: 'q_derm_skin_location',   options: ['opt_face', 'opt_arms', 'opt_legs', 'opt_torso', 'opt_other'] },
+    { id: 'skin_duration',   questionKey: 'q_derm_skin_duration',   options: ['opt_less_week', 'opt_one_month', 'opt_several_months', 'opt_more_year'] },
+    { id: 'itching',         questionKey: 'q_derm_itching',         options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'family_skin',     questionKey: 'q_derm_family_skin',     options: ['opt_yes', 'opt_no', 'opt_unknown'] },
+    { id: 'prev_skin_cond',  questionKey: 'q_derm_prev_skin_cond',  options: ['opt_yes', 'opt_no'] },
+  ],
+  spec_gastroenterology: [
+    { id: 'abdom_pain',      questionKey: 'q_gastro_abdom_pain',    options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'nausea',          questionKey: 'q_gastro_nausea',        options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'bowel_changes',   questionKey: 'q_gastro_bowel_changes', options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'heartburn',       questionKey: 'q_gastro_heartburn',     options: ['opt_yes', 'opt_no', 'opt_sometimes'] },
+    { id: 'prev_gi',         questionKey: 'q_gastro_prev_gi',       options: ['opt_yes', 'opt_no'] },
+  ],
 };
