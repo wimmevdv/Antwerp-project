@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useI18n } from '../../i18n';
 import { questionnaires } from '../../data/questionnaires';
 import { getCampusForSpecialty } from '../../data/campuses';
@@ -67,6 +67,9 @@ const Wizard = ({ onReset }) => {
     if (unanswered) return setErrors({ questionnaire: true }), false;
     return setErrors({}), true;
   };
+
+  // Scroll to top whenever the user moves to a new step
+  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }); }, [step]);
 
   // ── Navigation ───────────────────────────────────────────────────────────
 
