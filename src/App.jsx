@@ -9,6 +9,7 @@ import DoctorDashboard from './components/DoctorDashboard';
 
 const App = () => {
   const [view, setView] = useState('portal');
+  const [initialSpecialty, setInitialSpecialty] = useState(null);
   const { t } = useI18n();
 
   // Inactiviteitstimer — enkel actief tijdens kiosk-sessie
@@ -37,7 +38,10 @@ const App = () => {
   if (view === 'portal') {
     return (
       <Portal
-        onBookAppointment={() => setView('wizard')}
+        onBookAppointment={(specialty) => {
+          setInitialSpecialty(typeof specialty === 'string' ? specialty : null);
+          setView('wizard');
+        }}
         onDoctorLogin={() => setView('doctorLogin')}
       />
     );
@@ -60,7 +64,7 @@ const App = () => {
 
       <main className="container" style={{ flex: 1 }}>
         {view === 'wizard' && (
-          <Wizard onReset={() => setView('portal')} />
+          <Wizard onReset={() => setView('portal')} initialSpecialty={initialSpecialty} />
         )}
         {view === 'doctorLogin' && (
           <DoctorLogin

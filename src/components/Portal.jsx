@@ -90,7 +90,7 @@ const Portal = ({ onBookAppointment, onDoctorLogin }) => {
         ].map(({ icon, key, desc }) => {
           const prep = preparationInstructions[key];
           return (
-            <div key={key} className="portal-service-card" onClick={onBookAppointment}>
+            <div key={key} className="portal-service-card" onClick={() => onBookAppointment(key)}>
               <div className="portal-service-icon">{icon}</div>
               <h3>{t(key)}</h3>
               <p>{t(desc)}</p>

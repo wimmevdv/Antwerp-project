@@ -17,14 +17,17 @@ const INITIAL_FORM = {
   date: '', time: ''
 };
 
-const Wizard = ({ onReset }) => {
+const Wizard = ({ onReset, initialSpecialty }) => {
   const { t } = useI18n();
 
   const [step, setStep]                           = useState(1);
   const [isSuccess, setIsSuccess]                 = useState(false);
   const [guideMode, setGuideMode]                 = useState(false);
   const [currentWeekOffset, setCurrentWeekOffset] = useState(0);
-  const [formData, setFormData]                   = useState(INITIAL_FORM);
+  const [formData, setFormData]                   = useState({
+    ...INITIAL_FORM,
+    specialty: initialSpecialty || ''
+  });
   const [questionnaireAnswers, setAnswers]        = useState({});
   const [questionnaireNotes, setNotes]            = useState('');
   const [errors, setErrors]                       = useState({});
